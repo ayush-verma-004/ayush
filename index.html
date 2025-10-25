@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ayush Verma | Java Developer</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ---------------------- Global ---------------------- */
+        :root {
+            --primary-color: #00ffb3;
+            /* mint-green accent */
+            --bg-dark: #0f0f0f;
+            --bg-medium: #1a1a1a;
+            --text-light: #ffffff;
+            --text-medium: #c0c0c0;
+            --nav-height: 64px;
+            /* nav height */
+            --container-padding: 4%;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100%;
+            position: relative;
+        }
+
+        /* fixed subtle background layer that works on mobile and desktop */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -999;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(10, 10, 10, 1), rgba(16, 16, 16, 1));
+            /* a very subtle radial dark texture instead of bright green blob */
+            background-image:
+                radial-gradient(800px 400px at 85% 18%, rgba(255, 255, 255, 0.01), transparent),
+                radial-gradient(600px 300px at 10% 85%, rgba(255, 255, 255, 0.01), transparent),
+                linear-gradient(180deg, rgba(10, 10, 10, 1), rgba(16, 16, 16, 1));
+            background-attachment: fixed;
+            opacity: 1;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+            box-sizing: border-box;
+        }
+
+        /* make sections slightly more flexible for small screens */
+        section {
+            min-height: calc(100vh - var(--nav-height));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5.5rem 0;
+            scroll-margin-top: var(--nav-height);
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+        }
+
+        /* ---------------------- Navigation Bar ---------------------- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(15, 15, 15, 0.88);
+            backdrop-filter: blur(6px);
+            z-index: 1200;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        nav .logo span {
+            color: var(--primary-color);
+        }
+
+        nav .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.25rem;
+        }
+
+        nav .nav-links li a {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            padding: 0.5rem;
+            display: inline-block;
+        }
+
+        nav .nav-links li a:hover {
+            color: var(--text-light);
+        }
+
+        nav .nav-links li a.active {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Mobile Toggle */
+        .mobile-nav-toggle {
+            display: none;
+            font-size: 1.45rem;
+            color: var(--text-light);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ---------------------- Hero ---------------------- */
+        #hero {
+            text-align: center;
+            position: relative;
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+        }
+
+        #hero .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: .25rem;
+            color: var(--text-light);
+        }
+
+        #hero .typewriter {
+            font-size: 2.25rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            height: 2.75rem;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blinkCursor 0.7s infinite;
+            display: inline-block;
+        }
+
+        #hero .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-medium);
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            max-width: 720px;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-links a {
+            font-size: 1.4rem;
+            color: var(--text-medium);
+            transition: transform .25s ease, color .25s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        @keyframes blinkCursor {
+
+            0%,
+            100% {
+                border-color: var(--primary-color)
+            }
+
+            50% {
+                border-color: transparent
+            }
+        }
+
+        /* ---------------------- About ---------------------- */
+        #about .container {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 1.5rem;
+            align-items: start;
+            box-sizing: border-box;
+        }
+
+        .about-text {
+            background: var(--bg-medium);
+            padding: 1.75rem;
+            border-radius: 12px;
+            border: 1px solid #282828;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .about-text h2 {
+            margin-bottom: 1.25rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-medium);
+            margin-bottom: 1.15rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-code {
+            position: relative;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .about-code pre {
+            background: var(--bg-medium);
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            border: 1px solid #282828;
+            overflow-x: auto;
+            overflow-y: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            white-space: pre;
+            word-wrap: normal;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .about-code pre::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .about-code pre::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+
+        .about-code pre::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        .about-code pre::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        /* ---------------------- Projects ---------------------- */
+        #projects .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: var(--bg-medium);
+            border-radius: 10px;
+            border: 1px solid #222;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 255, 179, 0.04);
+        }
+
+        .project-content {
+            padding: 1rem 1.25rem;
+            flex-grow: 1
+        }
+
+        .project-card h3 {
+            color: var(--primary-color);
+            font-size: 1.05rem
+        }
+
+        .project-card p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            margin: 0.5rem 0 1rem 0
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap
+        }
+
+        .tag {
+            background: #333;
+            color: var(--text-medium);
+            padding: 0.25rem .6rem;
+            border-radius: 12px;
+            font-size: 0.78rem
+        }
+
+        .project-links {
+            padding: 0.65rem 1rem;
+            background: #0f0f0f;
+            border-top: 1px solid #222
+        }
+
+        .project-links a {
+            font-weight: 700;
+            margin-right: 1rem
+        }
+
+        /* ---------------------- Skills ---------------------- */
+        #skills .skill-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem
+        }
+
+        .skill-category {
+            background: var(--bg-medium);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #222
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            display: inline-block;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: .25rem;
+            margin-bottom: .75rem
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem
+        }
+
+        .skill-tag {
+            background: #333;
+            color: var(--text-light);
+            padding: .4rem .8rem;
+            border-radius: 6px
+        }
+
+        /* ---------------------- Experience (Timeline) ---------------------- */
+        #experience .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0
+        }
+
+        #experience .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--primary-color);
+            opacity: .14;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            padding: 1rem 2.5rem;
+            position: relative;
+            width: 50%
+        }
+
+        .timeline-item.left {
+            left: 0
+        }
+
+        .timeline-item.right {
+            left: 50%
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background: var(--bg-dark);
+            border: 4px solid var(--primary-color);
+            top: 24px;
+            border-radius: 50%;
+            z-index: 1
+        }
+
+        .timeline-item.right::after {
+            left: -8px;
+        }
+
+        .timeline-content {
+            padding: 1rem;
+            background: var(--bg-medium);
+            border-radius: 10px
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color)
+        }
+
+        .timeline-content .date {
+            font-size: .9rem;
+            color: var(--text-medium);
+            display: block;
+            margin-bottom: .5rem
+        }
+
+        /* ---------------------- Achievements ---------------------- */
+        #achievements .ach-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .ach-card {
+            background: var(--bg-medium);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #222;
+            color: var(--text-medium)
+        }
+
+        /* ---------------------- Contact ---------------------- */
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto
+        }
+
+        #contact input,
+        #contact textarea {
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: var(--bg-medium);
+            color: var(--text-light);
+            font-size: 1rem
+        }
+
+        #contact input:focus,
+        #contact textarea:focus {
+            outline: none;
+            border-color: var(--primary-color)
+        }
+
+        #contact button {
+            padding: 1rem;
+            border: none;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        /* ---------------------- Footer ---------------------- */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--bg-medium);
+            border-top: 1px solid #222
+        }
+
+        footer p {
+            color: var(--text-medium);
+            font-size: 0.9rem
+        }
+
+        /* ---------------------- Back to Top ---------------------- */
+        .back-to-top {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            z-index: 1300;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .25s ease, transform .25s ease
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ---------------------- Reveal ---------------------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: none
+        }
+
+        /* ---------------------- Responsive Breakpoints ---------------------- */
+
+        /* Tablet / small laptops */
+        @media (max-width: 900px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            /* Make nav links a slide-in panel (kept behavior) */
+            nav .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                right: 0;
+                width: 75%;
+                max-width: 320px;
+                height: calc(100vh - var(--nav-height));
+                background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(12, 12, 12, 0.98));
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem 1.5rem;
+                gap: 1rem;
+                transform: translateX(110%);
+                transition: transform .32s cubic-bezier(.2, .9, .2, 1);
+                box-shadow: -20px 0 40px rgba(0, 0, 0, 0.4);
+                box-sizing: border-box;
+            }
+
+            nav .nav-links.open {
+                transform: translateX(0);
+            }
+
+            nav .nav-links li {
+                width: 100%;
+            }
+
+            nav .nav-links li a {
+                font-size: 1.05rem;
+                color: var(--text-light);
+                width: 100%;
+                padding: .6rem 0;
+            }
+
+            /* Center the main container/sections so nothing hugs the left on tablets */
+            .container,
+            section .container {
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                max-width: 980px;
+                padding-inline: var(--container-padding, 6%);
+                box-sizing: border-box;
+            }
+
+            /* About stacks on small screens */
+            #about .container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding-left: var(--container-padding);
+                padding-right: var(--container-padding);
+            }
+
+            .about-text {
+                padding: 1.5rem;
+                max-width: 100%;
+                min-width: 0;
+                margin: 0;
+            }
+
+            .about-text h2 {
+                font-size: 1.95rem;
+            }
+
+            .about-text p {
+                font-size: 1.02rem;
+                line-height: 1.7;
+                max-width: 100%;
+            }
+
+            .about-code {
+                max-width: 100%;
+                min-width: 0;
+                margin: 0;
+            }
+
+            .about-code pre {
+                font-size: 0.88rem;
+                padding: 1.1rem;
+                overflow-x: auto;
+                line-height: 1.55;
+                max-width: 100%;
+            }
+
+            /* Timeline stacks better */
+            #experience .timeline::after {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 56px;
+                padding-right: .5rem;
+                padding-top: .75rem;
+                padding-bottom: .75rem;
+                box-sizing: border-box;
+            }
+
+            .timeline-item.left,
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 12px;
+                right: auto;
+            }
+
+            /* Reduce hero padding */
+            section {
+                padding: 3.5rem 0;
+                min-height: 80vh;
+            }
+
+            #hero {
+                padding-top: calc(var(--nav-height) + 1.5rem);
+                padding-bottom: 2.5rem;
+            }
+
+            #hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+
+            #hero .typewriter {
+                font-size: 1.6rem;
+                height: 2rem;
+                border-right: 3px solid var(--primary-color);
+            }
+
+            #hero .subtitle {
+                font-size: 1rem;
+                padding: 0 .5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .project-links {
+                padding: .7rem 1rem;
+            }
+
+            /* Touch target for both tablets & phones */
+            a:not(.social-links a),
+            button {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            /* Prevent accidental horizontal overflow that shifts layout */
+            html,
+            body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+        }
+
+        /* Small to medium phones */
+        @media (max-width: 600px) {
+            :root {
+                --container-padding: 5%;
+                --nav-height: 60px;
+            }
+
+            nav {
+                height: 60px;
+            }
+
+            nav .logo {
+                font-size: 1.1rem;
+            }
+
+            nav .nav-links {
+                width: 85%;
+                max-width: 100%;
+                padding: 1.5rem 1.25rem;
+                gap: 0.9rem;
+            }
+
+            nav .nav-links li a {
+                font-size: 1rem;
+                padding: .55rem 0;
+            }
+
+            /* Center container for phones and reduce max-width to keep content comfortable */
+            .container,
+            section .container {
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                max-width: 720px;
+                padding-inline: var(--container-padding);
+                box-sizing: border-box;
+            }
+
+            section {
+                padding: 3rem 0;
+                min-height: auto;
+            }
+
+            #hero {
+                padding-top: calc(var(--nav-height) + 1rem);
+                padding-bottom: 2rem;
+                min-height: 85vh;
+            }
+
+            #hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: .4rem;
+                line-height: 1.3;
+            }
+
+            #hero .typewriter {
+                font-size: 1.35rem;
+                height: 1.7rem;
+                border-right-width: 3px;
+                max-width: 95vw;
+            }
+
+            #hero .subtitle {
+                font-size: .95rem;
+                margin-top: .8rem;
+                margin-bottom: 1.2rem;
+                padding: 0 .25rem;
+                line-height: 1.6;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+            }
+
+            /* About responsive improvements */
+            #about .container {
+                padding-left: var(--container-padding);
+                padding-right: var(--container-padding);
+            }
+
+            .about-text {
+                padding: 1.25rem;
+                max-width: 100%;
+                min-width: 0;
+                margin: 0;
+            }
+
+            .about-text h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .about-text p {
+                font-size: .96rem;
+                line-height: 1.65;
+                margin-bottom: 1rem;
+                max-width: 100%;
+            }
+
+            .about-code {
+                max-width: 100%;
+                min-width: 0;
+                margin: 0;
+            }
+
+            .about-code pre {
+                font-size: .82rem;
+                padding: .95rem;
+                line-height: 1.5;
+                overflow-x: auto;
+                white-space: pre;
+                word-break: normal;
+                max-width: 100%;
+            }
+
+            .project-card {
+                border-radius: 8px;
+            }
+
+            .project-content {
+                padding: 1rem;
+            }
+
+            .project-card h3 {
+                font-size: 1rem;
+            }
+
+            .project-card p {
+                font-size: .9rem;
+                margin: .4rem 0 .8rem 0;
+            }
+
+            .tag {
+                font-size: .75rem;
+                padding: .22rem .55rem;
+            }
+
+            .project-links {
+                padding: .6rem 1rem;
+            }
+
+            .project-links a {
+                font-size: .9rem;
+            }
+
+            .skill-category {
+                padding: .9rem;
+            }
+
+            .skill-category h3 {
+                font-size: .95rem;
+                margin-bottom: .6rem;
+            }
+
+            .skill-tag {
+                font-size: .85rem;
+                padding: .35rem .65rem;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+                padding-right: .25rem;
+                box-sizing: border-box;
+            }
+
+            .timeline-item::after {
+                width: 14px;
+                height: 14px;
+                border-width: 3px;
+                left: 13px;
+            }
+
+            .timeline-content {
+                padding: .85rem;
+            }
+
+            .timeline-content h3 {
+                font-size: .95rem;
+            }
+
+            .timeline-content .date {
+                font-size: .85rem;
+                margin-bottom: .4rem;
+            }
+
+            .timeline-content p {
+                font-size: .9rem;
+            }
+
+            .ach-card {
+                padding: .9rem;
+                font-size: .9rem;
+            }
+
+            .ach-card strong {
+                font-size: .95rem;
+            }
+
+            #contact form {
+                gap: .65rem;
+            }
+
+            #contact input,
+            #contact textarea {
+                padding: .9rem;
+                font-size: .95rem;
+                border-radius: 6px;
+            }
+
+            #contact button {
+                padding: .95rem;
+                font-size: .95rem;
+            }
+
+            .social-links a {
+                font-size: 1.3rem;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                right: 1rem;
+                bottom: 1rem;
+                font-size: .9rem;
+            }
+
+            footer {
+                padding: 1.75rem 1rem;
+            }
+
+            footer p {
+                font-size: .85rem;
+            }
+
+            /* Make sure big children don't overflow the container */
+            img,
+            iframe,
+            .project-card,
+            .about-code pre,
+            .timeline-content,
+            #hero .typewriter {
+                max-width: 100%;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Keep small phones safe from horizontal scroll caused by errant 100vw etc. */
+            html,
+            body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 380px) {
+            :root {
+                --container-padding: 4.5%;
+                --nav-height: 56px;
+            }
+
+            nav {
+                height: 56px;
+            }
+
+            nav .logo {
+                font-size: 1rem;
+            }
+
+            /* Slightly smaller container max for tiny screens */
+            .container,
+            section .container {
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                max-width: 640px;
+                padding-inline: var(--container-padding);
+                box-sizing: border-box;
+            }
+
+            #hero {
+                padding-top: calc(var(--nav-height) + 0.75rem);
+            }
+
+            #hero h1 {
+                font-size: 1.5rem;
+            }
+
+            #hero .typewriter {
+                font-size: 1.15rem;
+                height: 1.5rem;
+                border-right-width: 2px;
+                max-width: 90vw;
+            }
+
+            #hero .subtitle {
+                font-size: .88rem;
+                line-height: 1.55;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            /* About responsive for very small screens */
+            .about-text {
+                padding: 1rem;
+            }
+
+            .about-text h2 {
+                font-size: 1.5rem;
+                margin-bottom: .85rem;
+            }
+
+            .about-text p {
+                font-size: .9rem;
+                line-height: 1.6;
+                margin-bottom: .9rem;
+            }
+
+            .about-code pre {
+                font-size: .78rem;
+                padding: .8rem;
+                line-height: 1.45;
+            }
+
+            .project-content {
+                padding: .85rem;
+            }
+
+            .project-card h3 {
+                font-size: .95rem;
+            }
+
+            .project-card p {
+                font-size: .85rem;
+            }
+
+            .tag {
+                font-size: .72rem;
+                padding: .2rem .5rem;
+            }
+
+            .project-links {
+                padding: .55rem .85rem;
+            }
+
+            .skill-category {
+                padding: .8rem;
+            }
+
+            .skill-tag {
+                font-size: .8rem;
+                padding: .32rem .6rem;
+            }
+
+            .timeline-item {
+                padding-left: 45px;
+            }
+
+            .timeline-item::after {
+                width: 12px;
+                height: 12px;
+                left: 14px;
+            }
+
+            .timeline-content {
+                padding: .75rem;
+            }
+
+            .timeline-content h3 {
+                font-size: .9rem;
+            }
+
+            .timeline-content p {
+                font-size: .85rem;
+            }
+
+            .ach-card {
+                padding: .8rem;
+                font-size: .85rem;
+            }
+
+            #contact input,
+            #contact textarea {
+                padding: .85rem;
+                font-size: .9rem;
+            }
+
+            #contact button {
+                padding: .9rem;
+            }
+
+            .social-links a {
+                font-size: 1.2rem;
+            }
+
+            .back-to-top {
+                width: 38px;
+                height: 38px;
+                right: .85rem;
+                bottom: .85rem;
+            }
+
+            /* final safety net */
+            html,
+            body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="#hero" class="logo">Ayush<span>.</span>Verma</a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero">/home</a></li>
+                <li><a href="#about">/about</a></li>
+                <li><a href="#projects">/projects</a></li>
+                <li><a href="#skills">/skills</a></li>
+                <li><a href="#experience">/experience</a></li>
+                <li><a href="#achievements">/achievements</a></li>
+                <li><a href="#contact">/contact</a></li>
+            </ul>
+
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation"
+                aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
+        </div>
+    </nav>
+
+    <section id="hero" aria-labelledby="hero-heading">
+        <div class="container">
+            <h1 id="hero-heading">Hello, I'm Ayush Verma.</h1>
+            <span id="typewriter" class="typewriter" aria-live="polite"></span>
+            <p class="subtitle">Java & Spring Boot developer building scalable backend platforms and microservices.
+                Passionate about clean code, performance tuning and reducing technical debt.</p>
+
+            <div class="social-links" aria-hidden="false">
+                <a href="https://github.com/ayush-verma-004" target="_blank" aria-label="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/ayush-verma-102120295" target="_blank" aria-label="LinkedIn"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="mailto:ayushverma593773@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+917724960697" aria-label="Phone"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-heading">
+        <div class="container">
+            <div class="about-text reveal">
+                <h2 id="about-heading">About Me</h2>
+                <p>Java & Spring Boot developer proficient in building scalable backend platforms and microservices. I
+                    write clean, maintainable logic and collaborate in agile teams with a strong focus on performance
+                    optimization and cutting technical debt.</p>
+                <p>I enjoy working on backend architecture, REST APIs, JWT authentication and microservices. I have
+                    experience containerizing services with Docker and integrating messaging solutions for real-time
+                    flows.</p>
+                <p style="font-size:0.95rem;color:var(--text-medium);margin-top:0.6rem;">Contact: (+91) 7724960697 •
+                    ayushverma593773@gmail.com</p>
+            </div>
+
+            <div class="about-code reveal" aria-hidden="false">
+                <pre>
+<span class="comment">// /src/main/java/com/ayush/AyushVerma.java</span>
+
+<span class="keyword">public class</span> <span class="class-name">AyushVerma</span> {
+
+  <span class="keyword">private String</span> role = <span class="string">"Java & Spring Boot Developer"</span>;
+  <span class="keyword">private String</span> focus = <span class="string">"Backend Systems & Microservices"</span>;
+
+  <span class="keyword">public</span> AyushVerma() {
+    <span class="method">System.out.println</span>(<span class="string">"Ready to build and learn."</span>);
+  }
+}
+        </pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-heading">
+        <div class="container">
+            <h2 id="projects-heading">Projects</h2>
+            <div class="project-grid">
+                <div class="project-card reveal">
+                    <div class="project-content">
+                        <h3>HelixCare — Microservices Healthcare Platform</h3>
+                        <p>Designed & implemented 6+ microservices with Spring Boot; containerized with Docker and
+                            integrated Kafka for realtime data flow. Built PostgreSQL schemas and extensive tests to
+                            improve uptime and modularity.</p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Kafka</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ayush-verma-004/HelixCare" target="_blank"><i
+                                class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-content">
+                        <h3>EosCarbon — Blue Carbon MRV Solution</h3>
+                        <p>Spring Boot backend for carbon MRV: project registration, evidence upload and verification
+                            workflows. Integrated AI/ML pipelines for drone & satellite biomass estimation to automate
+                            carbon calculations.</p>
+                        <div class="project-tags">
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">Satellite Data</span>
+                            <span class="tag">Blockchain (POC)</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ayush-verma-004/EosCarbon" target="_blank"><i
+                                class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-content">
+                        <h3>Auz — Personal AI Desktop Assistant</h3>
+                        <p>Voice-controlled Python assistant for automating everyday tasks: opening apps, playing media
+                            and system commands. Integrated speech recognition & TTS for responsive interaction.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Speech</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ayush-verma-004/Pyhton/tree/main/AI" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-heading">
+        <div class="container">
+            <h2 id="skills-heading">Skills & Toolkit</h2>
+            <div class="skill-categories">
+                <div class="skill-category reveal">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java Core</span>
+                        <span class="skill-tag">Java EE</span>
+                        <span class="skill-tag">Python (Basic)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3>Frameworks & Libraries</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Hibernate (JPA)</span>
+                        <span class="skill-tag">gRPC</span>
+                    </div>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3>Databases & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git & GitHub</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Swagger</span>
+                        <span class="skill-tag">JUnit</span>
+                        <span class="skill-tag">Hazelcast</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-heading">
+        <div class="container">
+            <h2 id="experience-heading">Experience & Education</h2>
+            <div class="timeline">
+
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <h3>Beangate IT Solutions — Java Backend Intern</h3>
+                        <span class="date">Remote • Intern</span>
+                        <p>Engineered 5+ backend modules with Java & Spring Boot, improved API response times by ~20%,
+                            and reduced technical debt through targeted refactors and testing.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <h3>Education — Rajiv Gandhi Proudyogiki Vishwavidyalaya</h3>
+                        <span class="date">B.Tech AI & ML • Sep 2023 – Jun 2027</span>
+                        <p>CGPA: 8.25 / 10. Relevant coursework: Data Structures, Algorithms, Databases, Networking, OS,
+                            AI, ML.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" aria-labelledby="achievements-heading">
+        <div class="container">
+            <h2 id="achievements-heading">Key Achievements</h2>
+            <div class="ach-list reveal">
+                <div class="ach-card">
+                    <strong>DSA & Competitive</strong>
+                    <p>Over 950+ DSA problems solved; 2-Star on CodeChef.</p>
+                </div>
+
+                <div class="ach-card">
+                    <strong>Hackathons & Recognition</strong>
+                    <p>1st place in Technocrats Hackathon; recognized by ISRO for idea submission at Bharatiya Antariksh
+                        Hackathon 2025; Smart India Hackathon participation.</p>
+                </div>
+
+                <div class="ach-card">
+                    <strong>Certifications & Badges</strong>
+                    <p>Google badge for Scalable Java Microservices; additional internal training and project
+                        certifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-heading">
+        <div class="container">
+            <h2 id="contact-heading">Contact Me</h2>
+            <p style="text-align:center;color:var(--text-medium);margin-bottom:1.25rem;">I'm open to opportunities and
+                collaborations. Reach out via email, phone, or LinkedIn — links above.</p>
+            <form action="https://formspree.io/f/your-form-id" method="POST" aria-label="Contact form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="7" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links" aria-hidden="false">
+                <a href="https://github.com/ayush-verma-004" target="_blank" aria-label="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/ayush-verma-102120295" target="_blank" aria-label="LinkedIn"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="mailto:ayushverma593773@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2025 Ayush Verma. Built with <i class="fas fa-heart" style="color: var(--primary-color);"></i> and
+                Java.</p>
+        </div>
+    </footer>
+
+    <a href="#hero" class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // DOM-ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typewriter
+            const typewriterElement = document.getElementById('typewriter');
+            if (typewriterElement) {
+                const strings = ["Java Developer", "Spring Boot Enthusiast", "Problem Solver", "Backend Engineer"];
+                let i = 0, j = 0, deleting = false;
+                const typeSpeed = 90, delSpeed = 45, pause = 1700;
+                function tick() {
+                    const full = strings[i];
+                    if (!deleting) {
+                        j++; typewriterElement.textContent = full.substring(0, j);
+                    } else {
+                        j--; typewriterElement.textContent = full.substring(0, j);
+                    }
+                    let delay = deleting ? delSpeed : typeSpeed;
+                    if (!deleting && j === full.length) { deleting = true; delay = pause; }
+                    if (deleting && j === 0) { deleting = false; i = (i + 1) % strings.length; }
+                    setTimeout(tick, delay);
+                }
+                tick();
+            }
+
+            // Scroll reveal using IntersectionObserver
+            const reveals = document.querySelectorAll('.reveal');
+            if (reveals.length) {
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+                }, { threshold: 0.12 });
+                reveals.forEach(r => obs.observe(r));
+            }
+
+            // Mobile nav toggle
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const navLinkAnchors = navLinks ? navLinks.querySelectorAll('a') : [];
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', () => {
+                    const open = navLinks.classList.toggle('open');
+                    navToggle.setAttribute('aria-expanded', String(open));
+                    const icon = navToggle.querySelector('i');
+                    if (icon) { icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); }
+                });
+
+                // Close menu on nav link click (mobile)
+                navLinkAnchors.forEach(a => a.addEventListener('click', () => {
+                    if (navLinks.classList.contains('open')) {
+                        navLinks.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        const icon = navToggle.querySelector('i'); if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+                    }
+                }));
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const isClickInside = navLinks.contains(e.target) || navToggle.contains(e.target);
+                    if (!isClickInside && navLinks.classList.contains('open')) {
+                        navLinks.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        const icon = navToggle.querySelector('i'); if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+                    }
+                });
+            }
+
+            // Back to top
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 320) backToTopButton.classList.add('show'); else backToTopButton.classList.remove('show');
+            });
+
+            // Active nav link highlight
+            const sections = document.querySelectorAll('section[id]');
+            const navAnchors = document.querySelectorAll('nav .nav-links li a');
+            if (sections.length && navAnchors.length) {
+                const sectionObs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            navAnchors.forEach(a => a.classList.remove('active'));
+                            const active = document.querySelector(`nav .nav-links li a[href="#${id}"]`);
+                            if (active) active.classList.add('active');
+                        }
+                    });
+                }, { threshold: 0.56, rootMargin: `-${document.documentElement.style.getPropertyValue('--nav-height') || 64}px 0px -40% 0px` });
+                sections.forEach(s => sectionObs.observe(s));
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
