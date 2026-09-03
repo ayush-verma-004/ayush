@@ -109,7 +109,7 @@ const PROJECT_DATABASE = {
       "Integrated AI-verified restoration data to accelerate carbon credit generation workflows, improving verification efficiency by 30%.",
       "Implemented MongoDB schemas, role-based access control (RBAC), JWT security, pagination, sorting, and global exception handlers."
     ],
-    github: "https://github.com/ayushverma593773",
+    github: "https://github.com/ayush-verma-004",
     liveDemo: "#"
   },
   helixcare: {
@@ -124,7 +124,7 @@ const PROJECT_DATABASE = {
       "Built isolated PostgreSQL database schemas per service to maintain domain boundaries.",
       "Wrote 200+ unit and integration tests using JUnit and TestContainers, raising code coverage by 30% and system uptime by 25%."
     ],
-    github: "https://github.com/ayushverma593773"
+    github: "https://github.com/ayush-verma-004"
   },
   auz: {
     title: "Auz — Personal AI Desktop Assistant",
@@ -137,7 +137,7 @@ const PROJECT_DATABASE = {
       "Implemented direct system integration for launching applications (YouTube, IDEs), playing media, and controlling power states.",
       "Cut manual desktop system control effort by 70% for daily repetitive developer workflows."
     ],
-    github: "https://github.com/ayushverma593773"
+    github: "https://github.com/ayush-verma-004"
   },
   sap_abap: {
     title: "SAP ABAP Cloud & S/4HANA Technical Portfolio",
@@ -150,7 +150,7 @@ const PROJECT_DATABASE = {
       "Documented S/4HANA data modeling patterns, Core Data Services (CDS), and internal table performance optimization.",
       "Built clean OOP ABAP modules for enterprise backend transaction management."
     ],
-    github: "https://github.com/ayushverma593773"
+    github: "https://github.com/ayush-verma-004"
   },
   shinobi: {
     title: "Shinobi-Verse Web Platform",
@@ -162,7 +162,7 @@ const PROJECT_DATABASE = {
       "Identified and resolved UI execution bugs, improving interface responsiveness.",
       "Refactored component layouts and stylesheet rules for uniform cross-browser performance."
     ],
-    github: "https://github.com/ayushverma593773"
+    github: "https://github.com/ayush-verma-004"
   },
   prompt_ui: {
     title: "AI-Driven Prompt Engineering Frontend",
@@ -174,7 +174,7 @@ const PROJECT_DATABASE = {
       "Demonstrated advanced prompt engineering and AI-driven UI component synthesis.",
       "Built responsive interface layouts with streamlined workflow execution."
     ],
-    github: "https://github.com/ayushverma593773"
+    github: "https://github.com/ayush-verma-004"
   }
 };
 
