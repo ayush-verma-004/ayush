@@ -1,1536 +1,1260 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ayush Verma | Java Developer</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* ---------------------- Global ---------------------- */
-        :root {
-            --primary-color: #00ffb3;
-            /* mint-green accent */
-            --bg-dark: #0f0f0f;
-            --bg-medium: #1a1a1a;
-            --text-light: #ffffff;
-            --text-medium: #c0c0c0;
-            --nav-height: 64px;
-            /* nav height */
-            --container-padding: 4%;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-light);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            min-height: 100%;
-            position: relative;
-        }
-
-        /* fixed subtle background layer that works on mobile and desktop */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -999;
-            pointer-events: none;
-            background:
-                linear-gradient(180deg, rgba(10, 10, 10, 1), rgba(16, 16, 16, 1));
-            /* a very subtle radial dark texture instead of bright green blob */
-            background-image:
-                radial-gradient(800px 400px at 85% 18%, rgba(255, 255, 255, 0.01), transparent),
-                radial-gradient(600px 300px at 10% 85%, rgba(255, 255, 255, 0.01), transparent),
-                linear-gradient(180deg, rgba(10, 10, 10, 1), rgba(16, 16, 16, 1));
-            background-attachment: fixed;
-            opacity: 1;
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
-            box-sizing: border-box;
-        }
-
-        /* make sections slightly more flexible for small screens */
-        section {
-            min-height: calc(100vh - var(--nav-height));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 5.5rem 0;
-            scroll-margin-top: var(--nav-height);
-        }
-
-        h1,
-        h2,
-        h3 {
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 2.25rem;
-            color: var(--primary-color);
-            margin-bottom: 1.25rem;
-        }
-
-        /* ---------------------- Navigation Bar ---------------------- */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--nav-height);
-            background: rgba(15, 15, 15, 0.88);
-            backdrop-filter: blur(6px);
-            z-index: 1200;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            display: flex;
-            align-items: center;
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-light);
-        }
-
-        nav .logo span {
-            color: var(--primary-color);
-        }
-
-        nav .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.25rem;
-        }
-
-        nav .nav-links li a {
-            font-size: 0.95rem;
-            color: var(--text-medium);
-            padding: 0.5rem;
-            display: inline-block;
-        }
-
-        nav .nav-links li a:hover {
-            color: var(--text-light);
-        }
-
-        nav .nav-links li a.active {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        /* Mobile Toggle */
-        .mobile-nav-toggle {
-            display: none;
-            font-size: 1.45rem;
-            color: var(--text-light);
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        /* ---------------------- Hero ---------------------- */
-        #hero {
-            text-align: center;
-            position: relative;
-            padding-top: 2rem;
-            padding-bottom: 3rem;
-        }
-
-        #hero .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        #hero h1 {
-            font-size: 3rem;
-            margin-bottom: .25rem;
-            color: var(--text-light);
-        }
-
-        #hero .typewriter {
-            font-size: 2.25rem;
-            color: var(--primary-color);
-            font-weight: 700;
-            height: 2.75rem;
-            border-right: 4px solid var(--primary-color);
-            padding-right: 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: blinkCursor 0.7s infinite;
-            display: inline-block;
-        }
-
-        #hero .subtitle {
-            font-size: 1.05rem;
-            color: var(--text-medium);
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-            max-width: 720px;
-        }
-
-        .social-links {
-            margin-top: 1rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .social-links a {
-            font-size: 1.4rem;
-            color: var(--text-medium);
-            transition: transform .25s ease, color .25s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        @keyframes blinkCursor {
-
-            0%,
-            100% {
-                border-color: var(--primary-color)
-            }
-
-            50% {
-                border-color: transparent
-            }
-        }
-
-        /* ---------------------- About ---------------------- */
-        #about .container {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 1.5rem;
-            align-items: start;
-            box-sizing: border-box;
-        }
-
-        .about-text {
-            background: var(--bg-medium);
-            padding: 1.75rem;
-            border-radius: 12px;
-            border: 1px solid #282828;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            max-width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-word;
-        }
-
-        .about-text h2 {
-            margin-bottom: 1.25rem;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-word;
-        }
-
-        .about-text p {
-            font-size: 1.05rem;
-            line-height: 1.75;
-            color: var(--text-medium);
-            margin-bottom: 1.15rem;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-word;
-            hyphens: auto;
-        }
-
-        .about-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        .about-code {
-            position: relative;
-            max-width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
-        }
-
-        .about-code pre {
-            background: var(--bg-medium);
-            padding: 1.25rem;
-            border-radius: 12px;
-            font-size: 0.92rem;
-            line-height: 1.6;
-            border: 1px solid #282828;
-            overflow-x: auto;
-            overflow-y: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            white-space: pre;
-            word-wrap: normal;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-
-        .about-code pre::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .about-code pre::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            border-radius: 4px;
-        }
-
-        .about-code pre::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-
-        .about-code pre::-webkit-scrollbar-thumb:hover {
-            background: #444;
-        }
-
-        /* ---------------------- Projects ---------------------- */
-        #projects .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1rem;
-        }
-
-        .project-card {
-            background: var(--bg-medium);
-            border-radius: 10px;
-            border: 1px solid #222;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform .25s ease, box-shadow .25s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0, 255, 179, 0.04);
-        }
-
-        .project-content {
-            padding: 1rem 1.25rem;
-            flex-grow: 1
-        }
-
-        .project-card h3 {
-            color: var(--primary-color);
-            font-size: 1.05rem
-        }
-
-        .project-card p {
-            color: var(--text-medium);
-            font-size: 0.95rem;
-            margin: 0.5rem 0 1rem 0
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap
-        }
-
-        .tag {
-            background: #333;
-            color: var(--text-medium);
-            padding: 0.25rem .6rem;
-            border-radius: 12px;
-            font-size: 0.78rem
-        }
-
-        .project-links {
-            padding: 0.65rem 1rem;
-            background: #0f0f0f;
-            border-top: 1px solid #222
-        }
-
-        .project-links a {
-            font-weight: 700;
-            margin-right: 1rem
-        }
-
-        /* ---------------------- Skills ---------------------- */
-        #skills .skill-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem
-        }
-
-        .skill-category {
-            background: var(--bg-medium);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid #222
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            display: inline-block;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: .25rem;
-            margin-bottom: .75rem
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: .5rem
-        }
-
-        .skill-tag {
-            background: #333;
-            color: var(--text-light);
-            padding: .4rem .8rem;
-            border-radius: 6px
-        }
-
-        /* ---------------------- Experience (Timeline) ---------------------- */
-        #experience .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 0
-        }
-
-        #experience .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background: var(--primary-color);
-            opacity: .14;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            padding: 1rem 2.5rem;
-            position: relative;
-            width: 50%
-        }
-
-        .timeline-item.left {
-            left: 0
-        }
-
-        .timeline-item.right {
-            left: 50%
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            right: -8px;
-            background: var(--bg-dark);
-            border: 4px solid var(--primary-color);
-            top: 24px;
-            border-radius: 50%;
-            z-index: 1
-        }
-
-        .timeline-item.right::after {
-            left: -8px;
-        }
-
-        .timeline-content {
-            padding: 1rem;
-            background: var(--bg-medium);
-            border-radius: 10px
-        }
-
-        .timeline-content h3 {
-            color: var(--primary-color)
-        }
-
-        .timeline-content .date {
-            font-size: .9rem;
-            color: var(--text-medium);
-            display: block;
-            margin-bottom: .5rem
-        }
-
-        /* ---------------------- Achievements ---------------------- */
-        #achievements .ach-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .ach-card {
-            background: var(--bg-medium);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid #222;
-            color: var(--text-medium)
-        }
-
-        /* ---------------------- Contact ---------------------- */
-        #contact form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto
-        }
-
-        #contact input,
-        #contact textarea {
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background: var(--bg-medium);
-            color: var(--text-light);
-            font-size: 1rem
-        }
-
-        #contact input:focus,
-        #contact textarea:focus {
-            outline: none;
-            border-color: var(--primary-color)
-        }
-
-        #contact button {
-            padding: 1rem;
-            border: none;
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer
-        }
-
-        /* ---------------------- Footer ---------------------- */
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            background: var(--bg-medium);
-            border-top: 1px solid #222
-        }
-
-        footer p {
-            color: var(--text-medium);
-            font-size: 0.9rem
-        }
-
-        /* ---------------------- Back to Top ---------------------- */
-        .back-to-top {
-            position: fixed;
-            right: 1.25rem;
-            bottom: 1.25rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            z-index: 1300;
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity .25s ease, transform .25s ease
-        }
-
-        .back-to-top.show {
-            opacity: 1;
-            transform: translateY(0)
-        }
-
-        /* ---------------------- Reveal ---------------------- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity .6s ease, transform .6s ease
-        }
-
-        .reveal.show {
-            opacity: 1;
-            transform: none
-        }
-
-        /* ---------------------- Responsive Breakpoints ---------------------- */
-
-        /* Tablet / small laptops */
-        @media (max-width: 900px) {
-            .mobile-nav-toggle {
-                display: block;
-            }
-
-            /* Make nav links a slide-in panel (kept behavior) */
-            nav .nav-links {
-                position: fixed;
-                top: var(--nav-height);
-                right: 0;
-                width: 75%;
-                max-width: 320px;
-                height: calc(100vh - var(--nav-height));
-                background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(12, 12, 12, 0.98));
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 2rem 1.5rem;
-                gap: 1rem;
-                transform: translateX(110%);
-                transition: transform .32s cubic-bezier(.2, .9, .2, 1);
-                box-shadow: -20px 0 40px rgba(0, 0, 0, 0.4);
-                box-sizing: border-box;
-            }
-
-            nav .nav-links.open {
-                transform: translateX(0);
-            }
-
-            nav .nav-links li {
-                width: 100%;
-            }
-
-            nav .nav-links li a {
-                font-size: 1.05rem;
-                color: var(--text-light);
-                width: 100%;
-                padding: .6rem 0;
-            }
-
-            /* Center the main container/sections so nothing hugs the left on tablets */
-            .container,
-            section .container {
-                margin-left: auto;
-                margin-right: auto;
-                width: 100%;
-                max-width: 980px;
-                padding-inline: var(--container-padding, 6%);
-                box-sizing: border-box;
-            }
-
-            /* About stacks on small screens */
-            #about .container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding-left: var(--container-padding);
-                padding-right: var(--container-padding);
-            }
-
-            .about-text {
-                padding: 1.5rem;
-                max-width: 100%;
-                min-width: 0;
-                margin: 0;
-            }
-
-            .about-text h2 {
-                font-size: 1.95rem;
-            }
-
-            .about-text p {
-                font-size: 1.02rem;
-                line-height: 1.7;
-                max-width: 100%;
-            }
-
-            .about-code {
-                max-width: 100%;
-                min-width: 0;
-                margin: 0;
-            }
-
-            .about-code pre {
-                font-size: 0.88rem;
-                padding: 1.1rem;
-                overflow-x: auto;
-                line-height: 1.55;
-                max-width: 100%;
-            }
-
-            /* Timeline stacks better */
-            #experience .timeline::after {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 56px;
-                padding-right: .5rem;
-                padding-top: .75rem;
-                padding-bottom: .75rem;
-                box-sizing: border-box;
-            }
-
-            .timeline-item.left,
-            .timeline-item.right {
-                left: 0;
-            }
-
-            .timeline-item::after {
-                left: 12px;
-                right: auto;
-            }
-
-            /* Reduce hero padding */
-            section {
-                padding: 3.5rem 0;
-                min-height: 80vh;
-            }
-
-            #hero {
-                padding-top: calc(var(--nav-height) + 1.5rem);
-                padding-bottom: 2.5rem;
-            }
-
-            #hero h1 {
-                font-size: 2.2rem;
-                line-height: 1.2;
-            }
-
-            #hero .typewriter {
-                font-size: 1.6rem;
-                height: 2rem;
-                border-right: 3px solid var(--primary-color);
-            }
-
-            #hero .subtitle {
-                font-size: 1rem;
-                padding: 0 .5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .project-links {
-                padding: .7rem 1rem;
-            }
-
-            /* Touch target for both tablets & phones */
-            a:not(.social-links a),
-            button {
-                min-height: 44px;
-                display: inline-flex;
-                align-items: center;
-            }
-
-            /* Prevent accidental horizontal overflow that shifts layout */
-            html,
-            body {
-                width: 100%;
-                overflow-x: hidden;
-            }
-        }
-
-        /* Small to medium phones */
-        @media (max-width: 600px) {
-            :root {
-                --container-padding: 5%;
-                --nav-height: 60px;
-            }
-
-            nav {
-                height: 60px;
-            }
-
-            nav .logo {
-                font-size: 1.1rem;
-            }
-
-            nav .nav-links {
-                width: 85%;
-                max-width: 100%;
-                padding: 1.5rem 1.25rem;
-                gap: 0.9rem;
-            }
-
-            nav .nav-links li a {
-                font-size: 1rem;
-                padding: .55rem 0;
-            }
-
-            /* Center container for phones and reduce max-width to keep content comfortable */
-            .container,
-            section .container {
-                margin-left: auto;
-                margin-right: auto;
-                width: 100%;
-                max-width: 720px;
-                padding-inline: var(--container-padding);
-                box-sizing: border-box;
-            }
-
-            section {
-                padding: 3rem 0;
-                min-height: auto;
-            }
-
-            #hero {
-                padding-top: calc(var(--nav-height) + 1rem);
-                padding-bottom: 2rem;
-                min-height: 85vh;
-            }
-
-            #hero h1 {
-                font-size: 1.8rem;
-                margin-bottom: .4rem;
-                line-height: 1.3;
-            }
-
-            #hero .typewriter {
-                font-size: 1.35rem;
-                height: 1.7rem;
-                border-right-width: 3px;
-                max-width: 95vw;
-            }
-
-            #hero .subtitle {
-                font-size: .95rem;
-                margin-top: .8rem;
-                margin-bottom: 1.2rem;
-                padding: 0 .25rem;
-                line-height: 1.6;
-            }
-
-            h2 {
-                font-size: 1.75rem;
-                margin-bottom: 1rem;
-            }
-
-            /* About responsive improvements */
-            #about .container {
-                padding-left: var(--container-padding);
-                padding-right: var(--container-padding);
-            }
-
-            .about-text {
-                padding: 1.25rem;
-                max-width: 100%;
-                min-width: 0;
-                margin: 0;
-            }
-
-            .about-text h2 {
-                font-size: 1.75rem;
-                margin-bottom: 1rem;
-            }
-
-            .about-text p {
-                font-size: .96rem;
-                line-height: 1.65;
-                margin-bottom: 1rem;
-                max-width: 100%;
-            }
-
-            .about-code {
-                max-width: 100%;
-                min-width: 0;
-                margin: 0;
-            }
-
-            .about-code pre {
-                font-size: .82rem;
-                padding: .95rem;
-                line-height: 1.5;
-                overflow-x: auto;
-                white-space: pre;
-                word-break: normal;
-                max-width: 100%;
-            }
-
-            .project-card {
-                border-radius: 8px;
-            }
-
-            .project-content {
-                padding: 1rem;
-            }
-
-            .project-card h3 {
-                font-size: 1rem;
-            }
-
-            .project-card p {
-                font-size: .9rem;
-                margin: .4rem 0 .8rem 0;
-            }
-
-            .tag {
-                font-size: .75rem;
-                padding: .22rem .55rem;
-            }
-
-            .project-links {
-                padding: .6rem 1rem;
-            }
-
-            .project-links a {
-                font-size: .9rem;
-            }
-
-            .skill-category {
-                padding: .9rem;
-            }
-
-            .skill-category h3 {
-                font-size: .95rem;
-                margin-bottom: .6rem;
-            }
-
-            .skill-tag {
-                font-size: .85rem;
-                padding: .35rem .65rem;
-            }
-
-            .timeline-item {
-                padding-left: 50px;
-                padding-right: .25rem;
-                box-sizing: border-box;
-            }
-
-            .timeline-item::after {
-                width: 14px;
-                height: 14px;
-                border-width: 3px;
-                left: 13px;
-            }
-
-            .timeline-content {
-                padding: .85rem;
-            }
-
-            .timeline-content h3 {
-                font-size: .95rem;
-            }
-
-            .timeline-content .date {
-                font-size: .85rem;
-                margin-bottom: .4rem;
-            }
-
-            .timeline-content p {
-                font-size: .9rem;
-            }
-
-            .ach-card {
-                padding: .9rem;
-                font-size: .9rem;
-            }
-
-            .ach-card strong {
-                font-size: .95rem;
-            }
-
-            #contact form {
-                gap: .65rem;
-            }
-
-            #contact input,
-            #contact textarea {
-                padding: .9rem;
-                font-size: .95rem;
-                border-radius: 6px;
-            }
-
-            #contact button {
-                padding: .95rem;
-                font-size: .95rem;
-            }
-
-            .social-links a {
-                font-size: 1.3rem;
-            }
-
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                right: 1rem;
-                bottom: 1rem;
-                font-size: .9rem;
-            }
-
-            footer {
-                padding: 1.75rem 1rem;
-            }
-
-            footer p {
-                font-size: .85rem;
-            }
-
-            /* Make sure big children don't overflow the container */
-            img,
-            iframe,
-            .project-card,
-            .about-code pre,
-            .timeline-content,
-            #hero .typewriter {
-                max-width: 100%;
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            /* Keep small phones safe from horizontal scroll caused by errant 100vw etc. */
-            html,
-            body {
-                width: 100%;
-                overflow-x: hidden;
-            }
-        }
-
-        /* Very small phones */
-        @media (max-width: 380px) {
-            :root {
-                --container-padding: 4.5%;
-                --nav-height: 56px;
-            }
-
-            nav {
-                height: 56px;
-            }
-
-            nav .logo {
-                font-size: 1rem;
-            }
-
-            /* Slightly smaller container max for tiny screens */
-            .container,
-            section .container {
-                margin-left: auto;
-                margin-right: auto;
-                width: 100%;
-                max-width: 640px;
-                padding-inline: var(--container-padding);
-                box-sizing: border-box;
-            }
-
-            #hero {
-                padding-top: calc(var(--nav-height) + 0.75rem);
-            }
-
-            #hero h1 {
-                font-size: 1.5rem;
-            }
-
-            #hero .typewriter {
-                font-size: 1.15rem;
-                height: 1.5rem;
-                border-right-width: 2px;
-                max-width: 90vw;
-            }
-
-            #hero .subtitle {
-                font-size: .88rem;
-                line-height: 1.55;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            /* About responsive for very small screens */
-            .about-text {
-                padding: 1rem;
-            }
-
-            .about-text h2 {
-                font-size: 1.5rem;
-                margin-bottom: .85rem;
-            }
-
-            .about-text p {
-                font-size: .9rem;
-                line-height: 1.6;
-                margin-bottom: .9rem;
-            }
-
-            .about-code pre {
-                font-size: .78rem;
-                padding: .8rem;
-                line-height: 1.45;
-            }
-
-            .project-content {
-                padding: .85rem;
-            }
-
-            .project-card h3 {
-                font-size: .95rem;
-            }
-
-            .project-card p {
-                font-size: .85rem;
-            }
-
-            .tag {
-                font-size: .72rem;
-                padding: .2rem .5rem;
-            }
-
-            .project-links {
-                padding: .55rem .85rem;
-            }
-
-            .skill-category {
-                padding: .8rem;
-            }
-
-            .skill-tag {
-                font-size: .8rem;
-                padding: .32rem .6rem;
-            }
-
-            .timeline-item {
-                padding-left: 45px;
-            }
-
-            .timeline-item::after {
-                width: 12px;
-                height: 12px;
-                left: 14px;
-            }
-
-            .timeline-content {
-                padding: .75rem;
-            }
-
-            .timeline-content h3 {
-                font-size: .9rem;
-            }
-
-            .timeline-content p {
-                font-size: .85rem;
-            }
-
-            .ach-card {
-                padding: .8rem;
-                font-size: .85rem;
-            }
-
-            #contact input,
-            #contact textarea {
-                padding: .85rem;
-                font-size: .9rem;
-            }
-
-            #contact button {
-                padding: .9rem;
-            }
-
-            .social-links a {
-                font-size: 1.2rem;
-            }
-
-            .back-to-top {
-                width: 38px;
-                height: 38px;
-                right: .85rem;
-                bottom: .85rem;
-            }
-
-            /* final safety net */
-            html,
-            body {
-                width: 100%;
-                overflow-x: hidden;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Verma — Java Backend & SAP ABAP Engineer</title>
+  
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="Portfolio of Ayush Verma, Java Backend & SAP ABAP Cloud Developer proficient in Spring Boot, Microservices, Kafka, PostgreSQL, Docker, and Data Structures & Algorithms." />
+  <meta property="og:title" content="Ayush Verma — Java Backend & SAP ABAP Engineer" />
+  <meta property="og:description" content="Building resilient microservices, scalable backend platforms, and enterprise solutions." />
+  <meta property="og:type" content="website" />
+  
+  <!-- Google Fonts: Inter (Sans) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
 
-    <nav role="navigation" aria-label="Main navigation">
-        <div class="container">
-            <a href="#hero" class="logo">Ayush<span>.</span>Verma</a>
+  <!-- ==========================================================================
+       1. NAVIGATION BAR
+       ========================================================================== -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#hero" class="nav-brand">
+        <span class="nav-brand-badge">AV</span>
+        <span>Ayush Verma</span>
+      </a>
 
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#hero">/home</a></li>
-                <li><a href="#about">/about</a></li>
-                <li><a href="#projects">/projects</a></li>
-                <li><a href="#skills">/skills</a></li>
-                <li><a href="#experience">/experience</a></li>
-                <li><a href="#achievements">/achievements</a></li>
-                <li><a href="#contact">/contact</a></li>
-            </ul>
+      <nav class="nav-menu">
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#featured" class="nav-link">Featured</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#problem-solving" class="nav-link">DSA</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
 
-            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation"
-                aria-expanded="false">
-                <i class="fas fa-bars" aria-hidden="true"></i>
+      <div class="nav-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle Theme">
+          <i class="fa-regular fa-moon"></i>
+        </button>
+        <a href="#resume-cta" class="btn btn-secondary btn-sm">
+          <i class="fa-solid fa-file-arrow-down"></i> Resume
+        </a>
+        <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Open Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         2. HERO SECTION
+         ========================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-status">
+            <span class="status-dot"></span>
+            <span>Open to Java Backend & Software Engineering Roles</span>
+          </div>
+
+          <h1 class="hero-main-title">
+            Java Backend Engineer building <span class="hero-highlight">reliable APIs</span>, microservices, and enterprise solutions.
+          </h1>
+
+          <p class="hero-description">
+            B.Tech candidate in Artificial Intelligence & Machine Learning with practical experience building distributed backends using <strong>Java, Spring Boot, Apache Kafka, PostgreSQL, Docker</strong>, and enterprise <strong>SAP ABAP Cloud</strong> fundamentals. Focused on clean architecture, API optimization, and scalable system design.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#featured" class="btn btn-primary">
+              View Major Case Studies <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <a href="#resume-cta" class="btn btn-secondary">
+              <i class="fa-regular fa-file-pdf"></i> Download Resume
+            </a>
+            <div style="display: flex; gap: 1rem; margin-left: 0.5rem;">
+              <a href="https://github.com/ayushverma593773" target="_blank" class="project-icon-link" aria-label="GitHub Profile">
+                <i class="fa-brands fa-github fa-lg"></i>
+              </a>
+              <a href="https://linkedin.com/in/" target="_blank" class="project-icon-link" aria-label="LinkedIn Profile">
+                <i class="fa-brands fa-linkedin fa-lg"></i>
+              </a>
+              <a href="mailto:ayushverma593773@gmail.com" class="project-icon-link" aria-label="Email Me">
+                <i class="fa-regular fa-envelope fa-lg"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Personal Focus Block -->
+          <div class="hero-focus-block">
+            <div class="hero-focus-header">
+              <span><i class="fa-solid fa-bullseye"></i> Currently Focused On</span>
+              <span style="font-size: 0.75rem;">Verified Technical Specializations</span>
+            </div>
+            <div class="hero-focus-tags">
+              <span class="chip chip-primary">Backend Engineering</span>
+              <span class="chip chip-primary">Distributed Systems (Kafka)</span>
+              <span class="chip chip-primary">SAP ABAP Cloud / S/4HANA</span>
+              <span class="chip chip-primary">AI Data Pipelines & Geospatial ML</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         3. PROFESSIONAL EXPERIENCE SECTION
+         ========================================================================== -->
+    <section id="experience" class="experience-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-briefcase"></i> Experience</span>
+          <h2 class="section-title">Engineering Roles & Internship</h2>
+          <p class="section-subtitle">Backend development, API performance tuning, and maintainable OOP architecture in agile production workflows.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="company-title">Beangate IT Solutions</h3>
+                  <div class="role-badge">
+                    <i class="fa-solid fa-code"></i> Intern — Java Backend Developer
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <span class="meta-location"><i class="fa-solid fa-globe"></i> Remote</span>
+                  <div style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 0.25rem;">Enterprise Software Solutions</div>
+                </div>
+              </div>
+
+              <!-- Quantified Impact Metrics Grid -->
+              <div class="experience-metrics">
+                <div class="exp-metric-item">
+                  <span class="exp-metric-value">5+</span>
+                  <span class="exp-metric-label">Backend Modules Built</span>
+                </div>
+                <div class="exp-metric-item">
+                  <span class="exp-metric-value">20%</span>
+                  <span class="exp-metric-label">API Response Time Cut</span>
+                </div>
+                <div class="exp-metric-item">
+                  <span class="exp-metric-value">1000+</span>
+                  <span class="exp-metric-label">Lines Refactored</span>
+                </div>
+                <div class="exp-metric-item">
+                  <span class="exp-metric-value">15%</span>
+                  <span class="exp-metric-label">Tech Debt Reduced</span>
+                </div>
+              </div>
+
+              <div class="timeline-bullets">
+                <div class="timeline-bullet">
+                  <strong>Engineered REST APIs:</strong> Developed 5+ Spring Boot backend modules incorporating request validation, JWT authentication, and database integration.
+                </div>
+                <div class="timeline-bullet">
+                  <strong>Applied Object-Oriented Principles:</strong> Authored 1000+ lines of modular, maintainable Java code to enhance core system reliability and decrease bug occurrence.
+                </div>
+                <div class="timeline-bullet">
+                  <strong>Optimized Query Performance:</strong> Refactored backend workflows and database queries, achieving a verified 20% reduction in API response times.
+                </div>
+                <div class="timeline-bullet">
+                  <strong>Code Quality & Mentorship:</strong> Assisted in active debugging, refactoring, and peer code reviews, cutting overall technical debt by 15%.
+                </div>
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; pt: 1rem; border-top: 1px solid var(--border-subtle);">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">PROJECTS WORKED ON:</span>
+                <span class="chip">Beangate Enterprise</span>
+                <span class="chip">Divya Jyoti NGO Platform</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. FEATURED MAJOR CASE STUDIES SECTION (HELIXCARE & EOSCARBON)
+         ========================================================================== -->
+    <section id="featured" class="featured-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-star"></i> Major System Architecture Case Studies</span>
+          <h2 class="section-title">Flagship Backend Engineering Projects</h2>
+          <p class="section-subtitle">Deep dive technical architectures for enterprise healthcare microservices and AI-assisted environmental MRV verification platforms.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 4rem;">
+
+          <!-- ----------------------------------------------------------------
+               MAJOR CASE STUDY 1: HELIXCARE HEALTHCARE PLATFORM
+               ---------------------------------------------------------------- -->
+          <div class="case-study-card">
+            <div class="case-study-badge">
+              <i class="fa-solid fa-diagram-project"></i> MAJOR CASE STUDY #1 • HEALTHCARE ARCHITECTURE
+            </div>
+
+            <div class="case-study-header">
+              <h3 class="case-study-title">HelixCare — Microservices Healthcare Platform</h3>
+              <p class="case-study-tagline">
+                A scalable microservices-based healthcare backend that supports patient onboarding, automatic billing account creation, and asynchronous analytics processing.
+              </p>
+            </div>
+
+            <div class="case-study-grid">
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-triangle-exclamation"></i> Problem Statement</h4>
+                <p class="cs-block-text">
+                  Legacy monolithic healthcare backends experience severe performance degradation and risk data corruption when patient registration, billing creation, and analytics logging execute synchronously on a single database.
+                </p>
+              </div>
+
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-gears"></i> Engineered Solution & Flow</h4>
+                <p class="cs-block-text">
+                  Architected a decoupled microservices backend with Spring Cloud API Gateway (Port 4004) routing `/auth/**` to Auth Service (Port 4005) and `/api/patients/**` with JWT validation to Patient Service (Port 4000). Utilizes synchronous gRPC (Port 9001) for instant billing creation and Apache Kafka event streams for asynchronous analytics processing.
+                </p>
+              </div>
+
+              <!-- EXACT SYSTEM ARCHITECTURE DIAGRAM FROM USER ATTACHMENT -->
+              <div class="cs-architecture-diagram">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                  <span style="font-family: var(--font-mono); font-size: 0.875rem; font-weight: 700; color: var(--accent-sage);">
+                    <i class="fa-solid fa-network-wired"></i> HELIXCARE — SYSTEM ARCHITECTURE FLOW
+                  </span>
+                  <span class="chip chip-primary" style="font-size: 0.75rem;">Exact Production Workflow</span>
+                </div>
+                
+                <div class="arch-svg-container">
+                  <svg viewBox="0 0 960 520" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="font-family: var(--font-sans); font-size: 11px;">
+                    <defs>
+                      <!-- Arrow Markers -->
+                      <marker id="arrow-sage" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-sage)" />
+                      </marker>
+                      <marker id="arrow-subtle" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-tertiary)" />
+                      </marker>
+                      <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#A855F7" />
+                      </marker>
+                      <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#EF4444" />
+                      </marker>
+                    </defs>
+
+                    <!-- 1. Clients -->
+                    <g transform="translate(15, 140)">
+                      <circle cx="25" cy="18" r="10" fill="none" stroke="var(--text-primary)" stroke-width="1.8"/>
+                      <path d="M 10 38 Q 25 25 40 38" fill="none" stroke="var(--text-primary)" stroke-width="1.8"/>
+                      <circle cx="45" cy="14" r="8" fill="none" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                      <path d="M 32 32 Q 45 22 58 32" fill="none" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                      <text x="35" y="55" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">Clients</text>
+                      <text x="35" y="70" fill="var(--text-tertiary)" text-anchor="middle" font-size="10">(Web / Mobile /</text>
+                      <text x="35" y="82" fill="var(--text-tertiary)" text-anchor="middle" font-size="10">REST-Assured)</text>
+                    </g>
+
+                    <line x1="95" y1="180" x2="160" y2="180" stroke="var(--text-secondary)" stroke-width="1.8" marker-end="url(#arrow-subtle)"/>
+                    <text x="127" y="172" fill="var(--text-tertiary)" text-anchor="middle" font-size="10" font-weight="600">HTTP</text>
+                    <text x="127" y="195" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">Port 4004</text>
+
+                    <!-- 2. API Gateway -->
+                    <g transform="translate(165, 130)">
+                      <rect x="0" y="0" width="165" height="100" rx="8" fill="var(--bg-surface)" stroke="#3B82F6" stroke-width="1.8"/>
+                      <circle cx="25" cy="24" r="10" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+                      <path d="M 25 14 L 25 34 M 15 24 L 35 24" stroke="#3B82F6" stroke-width="1.5"/>
+                      <text x="95" y="24" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">API GATEWAY</text>
+                      <text x="95" y="38" fill="var(--text-tertiary)" text-anchor="middle" font-size="10">(Spring Cloud Gateway)</text>
+                      <text x="95" y="52" fill="var(--text-secondary)" text-anchor="middle" font-size="10" font-weight="600">Port: 4004</text>
+                      <line x1="15" y1="62" x2="150" y2="62" stroke="var(--border-subtle)"/>
+                      <text x="25" y="76" fill="var(--text-secondary)" font-size="10">• Route Requests</text>
+                      <text x="25" y="90" fill="var(--text-secondary)" font-size="10">• JWT Validation Filter</text>
+                    </g>
+
+                    <!-- Arrow Gateway -> Auth Service -->
+                    <path d="M 330 150 L 490 60" fill="none" stroke="var(--text-secondary)" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <text x="410" y="95" fill="var(--text-secondary)" text-anchor="middle" font-size="10" font-weight="600">Route /auth/**</text>
+                    <text x="410" y="110" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">HTTP</text>
+
+                    <!-- Arrow Gateway -> Patient Service -->
+                    <path d="M 330 200 L 460 200" fill="none" stroke="var(--text-secondary)" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <text x="395" y="188" fill="var(--text-secondary)" text-anchor="middle" font-size="10" font-weight="600">Route /api/patients/**</text>
+                    <text x="395" y="215" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">+ JWT Validated (HTTP)</text>
+
+                    <!-- 3. Auth Service -->
+                    <g transform="translate(495, 20)">
+                      <rect x="0" y="0" width="165" height="90" rx="8" fill="var(--bg-surface)" stroke="#22C55E" stroke-width="1.8"/>
+                      <rect x="18" y="12" width="16" height="14" rx="2" fill="none" stroke="#22C55E" stroke-width="1.5"/>
+                      <path d="M 22 12 L 22 8 Q 26 4 30 8 L 30 12" fill="none" stroke="#22C55E" stroke-width="1.5"/>
+                      <text x="95" y="24" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">AUTH SERVICE</text>
+                      <text x="95" y="38" fill="var(--text-secondary)" text-anchor="middle" font-size="10" font-weight="600">Port: 4005</text>
+                      <line x1="15" y1="46" x2="150" y2="46" stroke="var(--border-subtle)"/>
+                      <text x="25" y="58" fill="var(--text-secondary)" font-size="9.5">• User Authentication</text>
+                      <text x="25" y="70" fill="var(--text-secondary)" font-size="9.5">• JWT Generation</text>
+                      <text x="25" y="82" fill="var(--text-secondary)" font-size="9.5">• Token Validation (/validate)</text>
+                    </g>
+
+                    <!-- Auth DB -->
+                    <line x1="660" y1="65" x2="720" y2="65" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <text x="690" y="58" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">JPA</text>
+                    <g transform="translate(725, 40)">
+                      <ellipse cx="25" cy="10" rx="25" ry="8" fill="var(--bg-surface)" stroke="var(--accent-sage)" stroke-width="1.5"/>
+                      <path d="M 0 10 L 0 35 Q 25 43 50 35 L 50 10" fill="var(--bg-surface)" stroke="var(--accent-sage)" stroke-width="1.5"/>
+                      <ellipse cx="25" cy="22" rx="25" ry="6" fill="none" stroke="var(--accent-sage)" stroke-dasharray="2,2"/>
+                      <text x="25" y="23" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="10">Auth DB</text>
+                      <text x="25" y="47" fill="var(--text-tertiary)" text-anchor="middle" font-size="8.5">(H2 / PostgreSQL)</text>
+                    </g>
+
+                    <!-- Token Validation (Patient Service <-> Auth Service) -->
+                    <line x1="575" y1="110" x2="575" y2="150" stroke="var(--text-secondary)" stroke-dasharray="4,4" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <text x="620" y="125" fill="var(--text-tertiary)" font-size="9">Validate Token</text>
+                    <text x="620" y="137" fill="var(--text-tertiary)" font-size="8.5">(GET /validate) HTTP</text>
+
+                    <!-- 4. Patient Service -->
+                    <g transform="translate(465, 155)">
+                      <rect x="0" y="0" width="165" height="90" rx="8" fill="var(--bg-surface)" stroke="#EAB308" stroke-width="1.8"/>
+                      <circle cx="22" cy="20" r="6" fill="none" stroke="#EAB308" stroke-width="1.5"/>
+                      <path d="M 12 32 Q 22 24 32 32" fill="none" stroke="#EAB308" stroke-width="1.5"/>
+                      <text x="95" y="24" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">PATIENT SERVICE</text>
+                      <text x="95" y="38" fill="var(--text-secondary)" text-anchor="middle" font-size="10" font-weight="600">Port: 4000</text>
+                      <line x1="15" y1="46" x2="150" y2="46" stroke="var(--border-subtle)"/>
+                      <text x="25" y="60" fill="var(--text-secondary)" font-size="9.5">• Manage Patients</text>
+                      <text x="25" y="74" fill="var(--text-secondary)" font-size="9.5">• Publish Patient Events</text>
+                    </g>
+
+                    <!-- Patient DB -->
+                    <line x1="630" y1="200" x2="685" y2="200" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <text x="657" y="193" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">JPA</text>
+                    <g transform="translate(690, 175)">
+                      <ellipse cx="25" cy="10" rx="25" ry="8" fill="var(--bg-surface)" stroke="#EAB308" stroke-width="1.5"/>
+                      <path d="M 0 10 L 0 35 Q 25 43 50 35 L 50 10" fill="var(--bg-surface)" stroke="#EAB308" stroke-width="1.5"/>
+                      <ellipse cx="25" cy="22" rx="25" ry="6" fill="none" stroke="#EAB308" stroke-dasharray="2,2"/>
+                      <text x="25" y="23" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="10">Patient DB</text>
+                      <text x="25" y="47" fill="var(--text-tertiary)" text-anchor="middle" font-size="8.5">(H2 / PostgreSQL)</text>
+                    </g>
+
+                    <!-- 5. Billing Service (gRPC Synchronous) -->
+                    <path d="M 465 220 L 330 290" fill="none" stroke="#A855F7" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
+                    <text x="380" y="248" fill="#A855F7" text-anchor="middle" font-size="10" font-weight="700">Synchronous gRPC</text>
+                    <text x="380" y="260" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">Port: 9001</text>
+
+                    <g transform="translate(160, 280)">
+                      <rect x="0" y="0" width="165" height="90" rx="8" fill="var(--bg-surface)" stroke="#A855F7" stroke-width="1.8"/>
+                      <rect x="15" y="12" width="14" height="18" fill="none" stroke="#A855F7" stroke-width="1.5"/>
+                      <text x="95" y="24" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">BILLING SERVICE</text>
+                      <text x="95" y="38" fill="var(--text-secondary)" text-anchor="middle" font-size="9.5">Port: 4001 | gRPC: 9001</text>
+                      <line x1="15" y1="46" x2="150" y2="46" stroke="var(--border-subtle)"/>
+                      <text x="25" y="60" fill="var(--text-secondary)" font-size="9.5">• Create Billing Account</text>
+                      <text x="25" y="74" fill="var(--text-secondary)" font-size="9.5">• Return Account ID & Status</text>
+                    </g>
+
+                    <!-- Billing Store -->
+                    <line x1="160" y1="325" x2="110" y2="325" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <g transform="translate(30, 300)">
+                      <ellipse cx="25" cy="10" rx="25" ry="8" fill="var(--bg-surface)" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                      <path d="M 0 10 L 0 35 Q 25 43 50 35 L 50 10" fill="var(--bg-surface)" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                      <text x="25" y="21" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="9">Billing Store</text>
+                      <text x="25" y="47" fill="var(--text-tertiary)" text-anchor="middle" font-size="8">(In-Memory / DB)</text>
+                    </g>
+
+                    <!-- 6. Apache Kafka (Message Broker) -->
+                    <path d="M 545 245 L 545 290" fill="none" stroke="#EF4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
+                    <text x="545" y="265" fill="#EF4444" text-anchor="middle" font-size="10" font-weight="700">Publish Event (Topic: patient)</text>
+
+                    <g transform="translate(450, 290)">
+                      <rect x="0" y="0" width="165" height="90" rx="8" fill="rgba(239, 68, 68, 0.1)" stroke="#EF4444" stroke-width="1.8"/>
+                      <circle cx="25" cy="22" r="8" fill="none" stroke="#EF4444" stroke-width="1.5"/>
+                      <circle cx="18" cy="30" r="4" fill="#EF4444"/>
+                      <circle cx="32" cy="30" r="4" fill="#EF4444"/>
+                      <text x="100" y="24" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">APACHE KAFKA</text>
+                      <text x="100" y="38" fill="#EF4444" text-anchor="middle" font-size="10" font-weight="600">(Message Broker)</text>
+                      <line x1="15" y1="46" x2="150" y2="46" stroke="rgba(239, 68, 68, 0.3)"/>
+                      <rect x="25" y="55" width="115" height="22" rx="4" fill="#EF4444" opacity="0.2"/>
+                      <text x="82" y="70" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="10">Topic: patient</text>
+                    </g>
+
+                    <!-- 7. Analytics Service (Kafka Consumer) -->
+                    <line x1="615" y1="335" x2="675" y2="335" stroke="#EF4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
+                    <text x="645" y="325" fill="#EF4444" text-anchor="middle" font-size="10" font-weight="600">Consume</text>
+                    <text x="645" y="350" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">Events</text>
+
+                    <g transform="translate(680, 290)">
+                      <rect x="0" y="0" width="165" height="90" rx="8" fill="var(--bg-surface)" stroke="#10B981" stroke-width="1.8"/>
+                      <rect x="15" y="15" width="6" height="18" fill="#10B981"/>
+                      <rect x="24" y="10" width="6" height="23" fill="#10B981"/>
+                      <text x="100" y="22" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="11">ANALYTICS SERVICE</text>
+                      <text x="100" y="36" fill="var(--text-tertiary)" text-anchor="middle" font-size="9.5">(Kafka Consumer)</text>
+                      <line x1="15" y1="46" x2="150" y2="46" stroke="var(--border-subtle)"/>
+                      <text x="25" y="60" fill="var(--text-secondary)" font-size="9.5">• Process Patient Events</text>
+                      <text x="25" y="74" fill="var(--text-secondary)" font-size="9.5">• Generate Analytics</text>
+                    </g>
+
+                    <!-- Analytics DB -->
+                    <line x1="845" y1="335" x2="875" y2="335" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                    <text x="860" y="325" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">JPA</text>
+                    <g transform="translate(880, 310)">
+                      <ellipse cx="25" cy="10" rx="22" ry="7" fill="var(--bg-surface)" stroke="#10B981" stroke-width="1.5"/>
+                      <path d="M 3 10 L 3 35 Q 25 43 47 35 L 47 10" fill="var(--bg-surface)" stroke="#10B981" stroke-width="1.5"/>
+                      <text x="25" y="21" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="9">Analytics DB</text>
+                      <text x="25" y="47" fill="var(--text-tertiary)" text-anchor="middle" font-size="8">(H2 / PostgreSQL)</text>
+                    </g>
+
+                    <!-- Legends & Details Footer in SVG -->
+                    <line x1="0" y1="410" x2="960" y2="410" stroke="var(--border-medium)" stroke-width="1"/>
+
+                    <!-- Communication Types Legend -->
+                    <g transform="translate(15, 425)">
+                      <text x="0" y="12" fill="var(--accent-sage)" font-weight="700" font-size="11">Communication Types</text>
+                      <line x1="0" y1="28" x2="25" y2="28" stroke="var(--text-secondary)" stroke-width="1.5" marker-end="url(#arrow-subtle)"/>
+                      <text x="32" y="31" fill="var(--text-secondary)" font-size="9.5">HTTP/REST (External & Gateway Routing)</text>
+
+                      <line x1="0" y1="45" x2="25" y2="45" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5"/>
+                      <text x="32" y="48" fill="var(--text-secondary)" font-size="9.5">HTTP (Token Validation)</text>
+
+                      <line x1="260" y1="28" x2="285" y2="28" stroke="#A855F7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+                      <text x="292" y="31" fill="var(--text-secondary)" font-size="9.5">gRPC (Synchronous)</text>
+
+                      <line x1="260" y1="45" x2="285" y2="45" stroke="#EF4444" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+                      <text x="292" y="48" fill="var(--text-secondary)" font-size="9.5">Kafka (Asynchronous Event)</text>
+                    </g>
+
+                    <!-- Key Highlights Legend -->
+                    <g transform="translate(480, 425)">
+                      <text x="0" y="12" fill="var(--accent-sage)" font-weight="700" font-size="11">Key Highlights</text>
+                      <text x="0" y="28" fill="var(--text-secondary)" font-size="9.5">✓ Centralized API Gateway with JWT validation</text>
+                      <text x="0" y="44" fill="var(--text-secondary)" font-size="9.5">✓ Secure authentication & authorization</text>
+                      <text x="0" y="60" fill="var(--text-secondary)" font-size="9.5">✓ Synchronous gRPC communication for critical ops</text>
+                      
+                      <text x="240" y="28" fill="var(--text-secondary)" font-size="9.5">✓ Asynchronous event-driven processing with Kafka</text>
+                      <text x="240" y="44" fill="var(--text-secondary)" font-size="9.5">✓ Loose coupling and high scalability</text>
+                      <text x="240" y="60" fill="var(--text-secondary)" font-size="9.5">✓ Databases per service (data isolation)</text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Service Ports Table matching the diagram -->
+              <div style="grid-column: 1 / -1; overflow-x: auto; margin-top: 0.5rem;">
+                <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8125rem; background-color: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);">
+                  <thead>
+                    <tr style="border-bottom: 1px solid var(--border-medium); background-color: var(--bg-surface-elevated); color: var(--accent-sage); text-align: left;">
+                      <th style="padding: 0.75rem 1rem;">Service</th>
+                      <th style="padding: 0.75rem 1rem;">HTTP Port</th>
+                      <th style="padding: 0.75rem 1rem;">gRPC Port</th>
+                      <th style="padding: 0.75rem 1rem;">Purpose / Responsibility</th>
+                    </tr>
+                  </thead>
+                  <tbody style="color: var(--text-secondary);">
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                      <td style="padding: 0.625rem 1rem; color: var(--text-primary); font-weight: 600;">API Gateway</td>
+                      <td style="padding: 0.625rem 1rem;">4004</td>
+                      <td style="padding: 0.625rem 1rem;">—</td>
+                      <td style="padding: 0.625rem 1rem;">Entry point, request routing & JWT validation filter</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                      <td style="padding: 0.625rem 1rem; color: var(--text-primary); font-weight: 600;">Auth Service</td>
+                      <td style="padding: 0.625rem 1rem;">4005</td>
+                      <td style="padding: 0.625rem 1rem;">—</td>
+                      <td style="padding: 0.625rem 1rem;">Authentication, JWT generation & `/validate` token verification</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                      <td style="padding: 0.625rem 1rem; color: var(--text-primary); font-weight: 600;">Patient Service</td>
+                      <td style="padding: 0.625rem 1rem;">4000</td>
+                      <td style="padding: 0.625rem 1rem;">—</td>
+                      <td style="padding: 0.625rem 1rem;">Patient management, token validation & publishing patient events</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                      <td style="padding: 0.625rem 1rem; color: var(--text-primary); font-weight: 600;">Billing Service</td>
+                      <td style="padding: 0.625rem 1rem;">4001</td>
+                      <td style="padding: 0.625rem 1rem;">9001</td>
+                      <td style="padding: 0.625rem 1rem;">Instant billing account creation via synchronous gRPC</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);">
+                      <td style="padding: 0.625rem 1rem; color: var(--text-primary); font-weight: 600;">Analytics Service</td>
+                      <td style="padding: 0.625rem 1rem;">—</td>
+                      <td style="padding: 0.625rem 1rem;">—</td>
+                      <td style="padding: 0.625rem 1rem;">Kafka consumer processing patient events & generating analytics</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 0.625rem 1rem; color: var(--text-primary); font-weight: 600;">Kafka (Message Broker)</td>
+                      <td style="padding: 0.625rem 1rem;">9092 (Default)</td>
+                      <td style="padding: 0.625rem 1rem;">—</td>
+                      <td style="padding: 0.625rem 1rem;">Event streaming broker for asynchronous `patient` topic</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-code-check"></i> Reliability & Testing Practices</h4>
+                <p class="cs-block-text">
+                  Authored <strong>200+ unit and integration tests</strong> using JUnit and TestContainers to simulate real PostgreSQL databases and Kafka messaging in isolated test runs, boosting overall test coverage by 30%.
+                </p>
+              </div>
+
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-screwdriver-wrench"></i> Technologies Used</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem;">
+                  <span class="chip chip-primary">Spring Boot</span>
+                  <span class="chip chip-primary">Spring Cloud Gateway</span>
+                  <span class="chip chip-primary">Apache Kafka</span>
+                  <span class="chip chip-primary">gRPC</span>
+                  <span class="chip chip-primary">Docker</span>
+                  <span class="chip chip-primary">PostgreSQL</span>
+                  <span class="chip chip-primary">JUnit & TestContainers</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Verified Outcomes -->
+            <div class="case-study-outcomes">
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">6+</span>
+                <span class="cs-outcome-desc">Microservices Implemented</span>
+              </div>
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">200+</span>
+                <span class="cs-outcome-desc">JUnit/TestContainers Tests</span>
+              </div>
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">+25%</span>
+                <span class="cs-outcome-desc">Modularity & Uptime Boost</span>
+              </div>
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">+30%</span>
+                <span class="cs-outcome-desc">Code Coverage Increase</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: center; justify-content: flex-end;">
+              <button class="btn btn-secondary btn-sm" data-project="helixcare">
+                <i class="fa-solid fa-sliders"></i> Deep Technical Details
+              </button>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="btn btn-primary btn-sm">
+                <i class="fa-brands fa-github"></i> HelixCare Repository
+              </a>
+            </div>
+          </div>
+
+
+          <!-- ----------------------------------------------------------------
+               MAJOR CASE STUDY 2: EOSCARBON BLUE CARBON MRV SOLUTION
+               ---------------------------------------------------------------- -->
+          <div class="case-study-card">
+            <div class="case-study-badge">
+              <i class="fa-solid fa-earth-americas"></i> MAJOR CASE STUDY #2 • ENVIRONMENTAL & AI ARCHITECTURE
+            </div>
+
+            <div class="case-study-header">
+              <h3 class="case-study-title">EosCarbon — Blue Carbon MRV Solution</h3>
+              <p class="case-study-tagline">
+                AI-assisted geospatial verification and environmental microservices platform automating biomass estimation and carbon credit generation workflows.
+              </p>
+            </div>
+
+            <div class="case-study-grid">
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-triangle-exclamation"></i> Problem Statement</h4>
+                <p class="cs-block-text">
+                  Coastal blue carbon restoration projects (mangroves, seagrass) suffer from slow manual verification, inaccurate physical biomass surveys, and fragmented field data submissions from remote conservation communities.
+                </p>
+              </div>
+
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-gears"></i> Engineered Solution & Flow</h4>
+                <p class="cs-block-text">
+                  Developed a Spring Boot backend microservices system with 6+ REST APIs handling project registration, field evidence uploads, and automated verification workflows. Integrated AI/ML models analyzing drone & satellite imagery to estimate biomass with 90%+ accuracy and accelerate carbon credit issuance.
+                </p>
+              </div>
+
+              <!-- EOSCARBON TECHNICAL ARCHITECTURE DIAGRAM -->
+              <div class="cs-architecture-diagram">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                  <span style="font-family: var(--font-mono); font-size: 0.875rem; font-weight: 700; color: var(--accent-sage);">
+                    <i class="fa-solid fa-network-wired"></i> EOSCARBON — SYSTEM ARCHITECTURE & AI DATA PIPELINE
+                  </span>
+                  <span class="chip chip-primary" style="font-size: 0.75rem;">AI/ML Geospatial Verification</span>
+                </div>
+
+                <div class="arch-svg-container">
+                  <svg viewBox="0 0 900 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" style="font-family: var(--font-sans); font-size: 11px;">
+                    <defs>
+                      <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-sage)" />
+                      </marker>
+                    </defs>
+
+                    <!-- Field Ingestion -->
+                    <rect x="20" y="30" width="150" height="75" rx="6" fill="var(--bg-surface)" stroke="var(--border-medium)" stroke-width="1.5"/>
+                    <text x="95" y="55" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">Field Mobile App</text>
+                    <text x="95" y="73" fill="var(--text-tertiary)" text-anchor="middle" font-size="10">NGO & Community Data</text>
+
+                    <rect x="20" y="135" width="150" height="75" rx="6" fill="var(--bg-surface)" stroke="var(--border-medium)" stroke-width="1.5"/>
+                    <text x="95" y="160" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="12">Satellite / Drone Data</text>
+                    <text x="95" y="178" fill="var(--text-tertiary)" text-anchor="middle" font-size="10">Geospatial Imagery</text>
+
+                    <line x1="170" y1="67" x2="230" y2="105" stroke="var(--accent-sage)" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+                    <line x1="170" y1="172" x2="230" y2="135" stroke="var(--accent-sage)" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+                    <!-- Spring Boot Microservices Core -->
+                    <g transform="translate(240, 45)">
+                      <rect x="0" y="0" width="190" height="150" rx="8" fill="var(--bg-surface-elevated)" stroke="var(--accent-sage)" stroke-width="1.8"/>
+                      <text x="95" y="24" fill="var(--accent-sage)" text-anchor="middle" font-weight="700" font-size="11">SPRING BOOT MICROSERVICES</text>
+                      
+                      <rect x="15" y="38" width="160" height="32" rx="4" fill="var(--bg-surface)" stroke="var(--border-medium)"/>
+                      <text x="95" y="58" fill="var(--text-primary)" text-anchor="middle" font-size="10">Project Registration (6+ APIs)</text>
+
+                      <rect x="15" y="80" width="160" height="32" rx="4" fill="var(--bg-surface)" stroke="var(--border-medium)"/>
+                      <text x="95" y="100" fill="var(--text-primary)" text-anchor="middle" font-size="10">JWT Auth & RBAC Security</text>
+
+                      <rect x="15" y="120" width="160" height="22" rx="4" fill="var(--accent-sage-muted)"/>
+                      <text x="95" y="135" fill="var(--accent-sage)" text-anchor="middle" font-size="9" font-weight="600">Exception Handling & Sorting</text>
+                    </g>
+
+                    <line x1="430" y1="120" x2="480" y2="120" stroke="var(--accent-sage)" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+                    <!-- AI/ML Engine -->
+                    <g transform="translate(490, 45)">
+                      <rect x="0" y="0" width="170" height="150" rx="8" fill="var(--bg-surface)" stroke="#3B82F6" stroke-width="1.8"/>
+                      <text x="85" y="25" fill="#3B82F6" text-anchor="middle" font-weight="700" font-size="11">AI/ML GEOSPATIAL ENGINE</text>
+                      <line x1="15" y1="35" x2="155" y2="35" stroke="var(--border-subtle)"/>
+                      <text x="85" y="55" fill="var(--text-primary)" text-anchor="middle" font-weight="600" font-size="10">Biomass Estimation</text>
+                      <text x="85" y="72" fill="var(--accent-sage)" text-anchor="middle" font-weight="700" font-size="12">90%+ Accuracy</text>
+                      <text x="85" y="95" fill="var(--text-secondary)" text-anchor="middle" font-size="9.5">Drone & Satellite Models</text>
+                      <text x="85" y="115" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">Carbon Stock Analytics</text>
+                    </g>
+
+                    <line x1="660" y1="120" x2="710" y2="120" stroke="var(--accent-sage)" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+                    <!-- Output & Store -->
+                    <g transform="translate(720, 45)">
+                      <rect x="0" y="0" width="160" height="150" rx="8" fill="var(--bg-surface)" stroke="var(--border-medium)" stroke-width="1.5"/>
+                      <text x="80" y="25" fill="var(--text-primary)" text-anchor="middle" font-weight="700" font-size="11">OUTPUT & VERIFICATION</text>
+                      <line x1="15" y1="35" x2="145" y2="35" stroke="var(--border-subtle)"/>
+                      <text x="80" y="55" fill="var(--accent-sage)" text-anchor="middle" font-weight="700" font-size="10">+30% Verification Efficiency</text>
+                      <text x="80" y="75" fill="var(--text-secondary)" text-anchor="middle" font-size="9.5">Carbon Credit Generation</text>
+                      <text x="80" y="105" fill="var(--text-primary)" text-anchor="middle" font-weight="600" font-size="10">MongoDB Store</text>
+                      <text x="80" y="125" fill="var(--text-tertiary)" text-anchor="middle" font-size="9">Environmental Schemas</text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-code-check"></i> Key Features & Implementation</h4>
+                <p class="cs-block-text">
+                  Implemented role-based access control (RBAC), custom pagination, sorting filters, global exception handling, and scalable MongoDB document schemas optimized for heavy geospatial environmental datasets.
+                </p>
+              </div>
+
+              <div class="cs-block">
+                <h4 class="cs-block-title"><i class="fa-solid fa-screwdriver-wrench"></i> Technologies Used</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem;">
+                  <span class="chip chip-primary">Spring Boot</span>
+                  <span class="chip chip-primary">MongoDB</span>
+                  <span class="chip chip-primary">JWT Auth</span>
+                  <span class="chip chip-primary">Microservices</span>
+                  <span class="chip chip-primary">Python AI/ML</span>
+                  <span class="chip chip-primary">Geospatial Processing</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Verified Outcomes for EosCarbon -->
+            <div class="case-study-outcomes">
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">6+</span>
+                <span class="cs-outcome-desc">Spring Boot REST APIs</span>
+              </div>
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">90%+</span>
+                <span class="cs-outcome-desc">AI Biomass Accuracy</span>
+              </div>
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">+40%</span>
+                <span class="cs-outcome-desc">Submission Volume Boost</span>
+              </div>
+              <div class="cs-outcome-item">
+                <span class="cs-outcome-num">+30%</span>
+                <span class="cs-outcome-desc">Verification Efficiency</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: center; justify-content: flex-end;">
+              <button class="btn btn-secondary btn-sm" data-project="eoscarbon">
+                <i class="fa-solid fa-sliders"></i> Deep Technical Details
+              </button>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="btn btn-primary btn-sm">
+                <i class="fa-brands fa-github"></i> EosCarbon Repository
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. SUPPORTING PROJECTS SECTION (EDITORIAL CARDS & FILTERS)
+         ========================================================================== -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-folder-open"></i> Projects Portfolio</span>
+          <h2 class="section-title">Supporting Applications & Engineering Projects</h2>
+          <p class="section-subtitle">Additional voice AI tools, enterprise SAP ABAP technical repositories, and frontend engineering projects.</p>
+        </div>
+
+        <div class="project-filters">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="ai">AI & Automation</button>
+          <button class="filter-btn" data-filter="sap">SAP ABAP</button>
+          <button class="filter-btn" data-filter="web">Web & Bug Resolution</button>
+        </div>
+
+        <div class="projects-editorial-grid">
+          <!-- Project Card 1: Auz AI Assistant (Large Card) -->
+          <div class="project-card large" data-category="ai" data-project="auz">
+            <div class="project-card-header">
+              <div>
+                <span class="chip chip-primary" style="margin-bottom: 0.75rem;">SYSTEM AUTOMATION • VOICE AI</span>
+                <h3 class="project-title">Auz — Personal AI Desktop Assistant</h3>
+              </div>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="project-icon-link" aria-label="GitHub Repository">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+
+            <p class="project-purpose">
+              Created a voice-controlled Python assistant automating 10+ daily tasks (opening applications, media control, system shutdown) using speech recognition, cutting manual developer effort by 70%.
+            </p>
+
+            <div style="display: flex; gap: 1.5rem; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent-sage);">
+              <span><i class="fa-solid fa-clock"></i> 70% Manual Effort Reduced</span>
+              <span><i class="fa-solid fa-microphone"></i> Voice Automation</span>
+            </div>
+
+            <div class="project-tech-stack">
+              <span class="chip">Python</span>
+              <span class="chip">Speech Recognition</span>
+              <span class="chip">Text-to-Speech</span>
+              <span class="chip">OS Automation</span>
+            </div>
+          </div>
+
+          <!-- Project Card 2: SAP ABAP Portfolio (Large Card) -->
+          <div class="project-card large" data-category="sap" data-project="sap_abap">
+            <div class="project-card-header">
+              <div>
+                <span class="chip chip-primary" style="margin-bottom: 0.75rem;">ENTERPRISE SAP</span>
+                <h3 class="project-title">SAP ABAP Cloud & S/4HANA Portfolio</h3>
+              </div>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="project-icon-link">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+
+            <p class="project-purpose">
+              Practiced and documented ABAP Cloud, Object-Oriented ABAP, Open SQL, Internal Tables, Data Dictionary, and S/4HANA CDS concepts with technical notes and data modeling examples.
+            </p>
+
+            <div style="display: flex; gap: 1.5rem; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent-sage);">
+              <span><i class="fa-solid fa-certificate"></i> SAP Back-End Certified</span>
+              <span><i class="fa-solid fa-database"></i> CDS Data Modeling</span>
+            </div>
+
+            <div class="project-tech-stack">
+              <span class="chip">ABAP Cloud</span>
+              <span class="chip">S/4HANA</span>
+              <span class="chip">CDS Views</span>
+              <span class="chip">Open SQL</span>
+            </div>
+          </div>
+
+          <!-- Project Card 3: Shinobi-Verse (Standard Card) -->
+          <div class="project-card standard" data-category="web" data-project="shinobi">
+            <div class="project-card-header">
+              <div>
+                <span class="chip" style="margin-bottom: 0.5rem;">WEB ENGINEERING</span>
+                <h3 class="project-title">Shinobi-Verse Bug Resolution</h3>
+              </div>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="project-icon-link">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+
+            <p class="project-purpose">
+              Served as primary bug solver, identifying and rectifying core execution and layout errors in HTML, CSS, and JavaScript to ensure smooth application performance.
+            </p>
+
+            <div class="project-tech-stack">
+              <span class="chip">JavaScript</span>
+              <span class="chip">HTML5</span>
+              <span class="chip">CSS3</span>
+            </div>
+          </div>
+
+          <!-- Project Card 4: AI Prompt UI (Standard Card) -->
+          <div class="project-card standard" data-category="ai web" data-project="prompt_ui">
+            <div class="project-card-header">
+              <div>
+                <span class="chip" style="margin-bottom: 0.5rem;">PROMPT ENGINEERING</span>
+                <h3 class="project-title">Prompt Engineering UI Project</h3>
+              </div>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="project-icon-link">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+
+            <p class="project-purpose">
+              Built a complete functional frontend web application using advanced AI prompts in under 40 minutes, demonstrating rapid UI generation and AI execution capability.
+            </p>
+
+            <div class="project-tech-stack">
+              <span class="chip">AI Prompts</span>
+              <span class="chip">Frontend UI</span>
+              <span class="chip">Rapid Prototype</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. TECHNICAL SKILLS SECTION (DEPTH CATEGORIZED)
+         ========================================================================== -->
+    <section id="skills" class="skills-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-layer-group"></i> Technical Stack</span>
+          <h2 class="section-title">Skills & Core Competencies</h2>
+          <p class="section-subtitle">Structured technical capabilities categorized by domain depth without arbitrary percentage meters.</p>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Core Languages -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fa-solid fa-code"></i> Core Languages
+            </h3>
+            <div class="skill-list">
+              <span class="chip chip-primary">Java Core</span>
+              <span class="chip chip-primary">Java EE</span>
+              <span class="chip chip-primary">ABAP Cloud</span>
+              <span class="chip">Python</span>
+              <span class="chip">SQL</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">HTML/CSS</span>
+            </div>
+          </div>
+
+          <!-- Backend & Microservices -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fa-solid fa-server"></i> Backend & Distributed
+            </h3>
+            <div class="skill-list">
+              <span class="chip chip-primary">Spring Boot</span>
+              <span class="chip chip-primary">Spring Security</span>
+              <span class="chip chip-primary">REST APIs</span>
+              <span class="chip chip-primary">Microservices</span>
+              <span class="chip chip-primary">JWT Auth</span>
+              <span class="chip">Apache Kafka</span>
+              <span class="chip">Hibernate/JPA</span>
+              <span class="chip">gRPC</span>
+            </div>
+          </div>
+
+          <!-- Databases & Infrastructure -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fa-solid fa-database"></i> Database & Tools
+            </h3>
+            <div class="skill-list">
+              <span class="chip chip-primary">PostgreSQL</span>
+              <span class="chip chip-primary">MongoDB</span>
+              <span class="chip">MySQL</span>
+              <span class="chip chip-primary">Docker</span>
+              <span class="chip">Git / GitHub</span>
+              <span class="chip">Postman</span>
+              <span class="chip">Maven</span>
+              <span class="chip">JUnit & TestContainers</span>
+            </div>
+          </div>
+
+          <!-- Enterprise SAP & Core CS -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">
+              <i class="fa-solid fa-cubes"></i> Enterprise & CS Core
+            </h3>
+            <div class="skill-list">
+              <span class="chip chip-primary">SAP S/4HANA</span>
+              <span class="chip chip-primary">CDS Data Modeling</span>
+              <span class="chip chip-primary">Data Structures (DSA)</span>
+              <span class="chip">Multithreading</span>
+              <span class="chip">OOP Principles</span>
+              <span class="chip">Low-Level Design (LLD)</span>
+              <span class="chip">Machine Learning (Basic)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. PROBLEM SOLVING & COMPETITIVE PROGRAMMING
+         ========================================================================== -->
+    <section id="problem-solving" class="problem-solving-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-brain"></i> Algorithmic Mastery</span>
+          <h2 class="section-title">Problem Solving & DSA</h2>
+          <p class="section-subtitle">Consistent problem-solving track record across competitive programming platforms.</p>
+        </div>
+
+        <div class="ps-grid">
+          <div class="ps-summary-card">
+            <div class="ps-big-stat">
+              <span class="ps-stat-number">950+</span>
+              <span class="ps-stat-label">Algorithmic Problems Solved</span>
+              <span class="ps-stat-sub">Across LeetCode, CodeChef, and Codeforces</span>
+            </div>
+            
+            <p style="font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.6;">
+              Demonstrated problem-solving endurance focusing on dynamic programming, graph algorithms, complex data structure implementations, multithreading synchronization, and low-level design patterns.
+            </p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              <span class="chip">Arrays & Hashing</span>
+              <span class="chip">Trees & Graphs</span>
+              <span class="chip">Dynamic Programming</span>
+              <span class="chip">Two Pointers</span>
+              <span class="chip">Bit Manipulation</span>
+            </div>
+          </div>
+
+          <div class="ps-platform-list">
+            <div class="ps-platform-item">
+              <div class="platform-info">
+                <i class="fa-solid fa-code-commit" style="color: var(--accent-sage);"></i>
+                <div>
+                  <div class="platform-name">CodeChef</div>
+                  <div style="font-size: 0.8125rem; color: var(--text-tertiary);">Competitive Programming</div>
+                </div>
+              </div>
+              <span class="platform-badge"><i class="fa-solid fa-star"></i> 3-Star Rating</span>
+            </div>
+
+            <div class="ps-platform-item">
+              <div class="platform-info">
+                <i class="fa-brands fa-hackerrank" style="color: var(--accent-sage);"></i>
+                <div>
+                  <div class="platform-name">HackerRank (Java)</div>
+                  <div style="font-size: 0.8125rem; color: var(--text-tertiary);">Java Core Competency</div>
+                </div>
+              </div>
+              <span class="platform-badge"><i class="fa-solid fa-star"></i> 3-Star Coder</span>
+            </div>
+
+            <div class="ps-platform-item">
+              <div class="platform-info">
+                <i class="fa-solid fa-terminal" style="color: var(--accent-sage);"></i>
+                <div>
+                  <div class="platform-name">LeetCode & Codeforces</div>
+                  <div style="font-size: 0.8125rem; color: var(--text-tertiary);">DSA Practice</div>
+                </div>
+              </div>
+              <span class="platform-badge">Active Solver</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         8. EDUCATION SECTION
+         ========================================================================== -->
+    <section id="education" class="education-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-graduation-cap"></i> Academics</span>
+          <h2 class="section-title">Education & Background</h2>
+          <p class="section-subtitle">Formal engineering degree in AI/ML paired with foundational computer science coursework.</p>
+        </div>
+
+        <div class="education-grid">
+          <!-- B.Tech Degree -->
+          <div class="edu-card">
+            <span class="chip chip-primary" style="width: fit-content;">BACHELOR OF TECHNOLOGY</span>
+            <h3 class="edu-degree">Artificial Intelligence & Machine Learning</h3>
+            <p class="edu-institution">Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV), India</p>
+
+            <div style="font-size: 0.875rem; color: var(--text-secondary); margin: 0.5rem 0;">
+              <strong>Relevant Coursework:</strong> Data Structures, Algorithms, Databases (DBMS), Computer Networks, Operating Systems, AI, ML.
+            </div>
+
+            <div class="edu-meta">
+              <span>Sep 2023 – Jun 2027</span>
+              <span class="edu-score">CGPA: 8.25 / 10</span>
+            </div>
+          </div>
+
+          <!-- Higher Secondary -->
+          <div class="edu-card">
+            <span class="chip" style="width: fit-content;">HIGHER SECONDARY EDUCATION</span>
+            <h3 class="edu-degree">10th & 12th Senior Secondary Grades</h3>
+            <p class="edu-institution">Shining Public Higher Secondary School, India</p>
+
+            <div style="font-size: 0.875rem; color: var(--text-secondary); margin: 0.5rem 0;">
+              <strong>PCMB Stream:</strong> Physics, Chemistry, Mathematics, Biology with explicit focus on Computer Applications & Maths.
+            </div>
+
+            <div class="edu-meta">
+              <span>2021 and 2023</span>
+              <span class="edu-score">10th: 89% | 12th: 84%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         9. CERTIFICATIONS & ACHIEVEMENTS
+         ========================================================================== -->
+    <section id="achievements" class="achievements-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-award"></i> Recognition</span>
+          <h2 class="section-title">Certifications & Achievements</h2>
+          <p class="section-subtitle">Industry credentials, hackathon victories, and official technical honors.</p>
+        </div>
+
+        <div class="achievements-dual-grid">
+          <!-- Certifications Column -->
+          <div class="achievement-column">
+            <div class="col-header">
+              <i class="fa-solid fa-certificate"></i> Verified Certifications
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-circle-check achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">SAP Certified Back-End Developer – ABAP Cloud</div>
+                <div class="achieve-issuer">SAP Credential Verification</div>
+              </div>
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-circle-check achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">Google Badge — Scalable Java Microservices</div>
+                <div class="achieve-issuer">Google Developer Skill Credential</div>
+              </div>
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-circle-check achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">Anthropic Claude Code in Action Certification</div>
+                <div class="achieve-issuer">AI-Assisted Development Certification</div>
+              </div>
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-circle-check achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">Accenture Development & Advanced Engineering Simulation</div>
+                <div class="achieve-issuer">Accenture Job Simulation</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hackathons & Achievements Column -->
+          <div class="achievement-column">
+            <div class="col-header">
+              <i class="fa-solid fa-trophy"></i> Awards & Leadership
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-trophy achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">1st Place — Technocrats Hackathon</div>
+                <div class="achieve-issuer">Secured top position among 160+ competing engineering teams</div>
+              </div>
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-rocket achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">Recognized by ISRO</div>
+                <div class="achieve-issuer">Bharatiya Antariksh Hackathon 2025 Idea Submission</div>
+              </div>
+            </div>
+
+            <div class="achieve-item">
+              <i class="fa-solid fa-users achieve-icon"></i>
+              <div class="achieve-content">
+                <div class="achieve-title">GeeksforGeeks Campus Mantri — Technical Head</div>
+                <div class="achieve-issuer">Ongoing Technical Campus Leadership & Mentorship</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         10. RESUME CTA SECTION
+         ========================================================================== -->
+    <section id="resume-cta" class="resume-cta-section">
+      <div class="container">
+        <div class="resume-cta-box">
+          <div class="cta-content">
+            <h2 class="cta-title">Interested in working together?</h2>
+            <p class="cta-text">
+              Download my complete resume for a detailed overview of my experience, projects, and backend technical skills.
+            </p>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="mailto:ayushverma593773@gmail.com?subject=Opportunity%20for%20Ayush%20Verma" class="btn btn-primary">
+              <i class="fa-regular fa-paper-plane"></i> Contact Me Directly
+            </a>
+            <button class="btn btn-secondary" onclick="window.print()">
+              <i class="fa-solid fa-print"></i> Print / Save PDF
             </button>
-
+          </div>
         </div>
-    </nav>
-
-    <section id="hero" aria-labelledby="hero-heading">
-        <div class="container">
-            <h1 id="hero-heading">Hello, I'm Ayush Verma.</h1>
-            <span id="typewriter" class="typewriter" aria-live="polite"></span>
-            <p class="subtitle">Java & Spring Boot developer building scalable backend platforms and microservices.
-                Passionate about clean code, performance tuning and reducing technical debt.</p>
-
-            <div class="social-links" aria-hidden="false">
-                <a href="https://github.com/ayush-verma-004" target="_blank" aria-label="GitHub"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/ayush-verma-102120295" target="_blank" aria-label="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="mailto:ayushverma593773@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="tel:+917724960697" aria-label="Phone"><i class="fas fa-phone"></i></a>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <section id="about" aria-labelledby="about-heading">
-        <div class="container">
-            <div class="about-text reveal">
-                <h2 id="about-heading">About Me</h2>
-                <p>Java & Spring Boot developer proficient in building scalable backend platforms and microservices. I
-                    write clean, maintainable logic and collaborate in agile teams with a strong focus on performance
-                    optimization and cutting technical debt.</p>
-                <p>I enjoy working on backend architecture, REST APIs, JWT authentication and microservices. I have
-                    experience containerizing services with Docker and integrating messaging solutions for real-time
-                    flows.</p>
-                <p style="font-size:0.95rem;color:var(--text-medium);margin-top:0.6rem;">Contact: (+91) 7724960697 •
-                    ayushverma593773@gmail.com</p>
-            </div>
-
-            <div class="about-code reveal" aria-hidden="false">
-                <pre>
-<span class="comment">// /src/main/java/com/ayush/AyushVerma.java</span>
-
-<span class="keyword">public class</span> <span class="class-name">AyushVerma</span> {
-
-  <span class="keyword">private String</span> role = <span class="string">"Java & Spring Boot Developer"</span>;
-  <span class="keyword">private String</span> focus = <span class="string">"Backend Systems & Microservices"</span>;
-
-  <span class="keyword">public</span> AyushVerma() {
-    <span class="method">System.out.println</span>(<span class="string">"Ready to build and learn."</span>);
-  }
-}
-        </pre>
-            </div>
+    <!-- ==========================================================================
+         11. CONTACT SECTION (HONEST & DIRECT)
+         ========================================================================== -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-regular fa-envelope"></i> Get In Touch</span>
+          <h2 class="section-title">Let's Connect</h2>
+          <p class="section-subtitle">Have an opportunity, software engineering role, or technical discussion in mind? I'd be happy to connect.</p>
         </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-block">
+            <p style="font-size: 1.0625rem; color: var(--text-secondary); line-height: 1.7;">
+              I am actively seeking Java Backend, Software Engineering, and SAP ABAP development roles. Feel free to reach out directly via email or phone.
+            </p>
+
+            <div class="contact-direct-cards">
+              <!-- Email Card -->
+              <div class="contact-direct-card">
+                <div class="direct-details">
+                  <i class="fa-regular fa-envelope direct-icon"></i>
+                  <div>
+                    <div class="direct-label">Email Address</div>
+                    <div class="direct-val">ayushverma593773@gmail.com</div>
+                  </div>
+                </div>
+                <button class="copy-btn" data-copy="ayushverma593773@gmail.com">
+                  <i class="fa-regular fa-copy"></i> Copy
+                </button>
+              </div>
+
+              <!-- Phone Card -->
+              <div class="contact-direct-card">
+                <div class="direct-details">
+                  <i class="fa-solid fa-phone direct-icon"></i>
+                  <div>
+                    <div class="direct-label">Phone Number</div>
+                    <div class="direct-val">+91 7724960697</div>
+                  </div>
+                </div>
+                <button class="copy-btn" data-copy="+91 7724960697">
+                  <i class="fa-regular fa-copy"></i> Copy
+                </button>
+              </div>
+
+              <!-- Location Card -->
+              <div class="contact-direct-card">
+                <div class="direct-details">
+                  <i class="fa-solid fa-location-dot direct-icon"></i>
+                  <div>
+                    <div class="direct-label">Location</div>
+                    <div class="direct-val">India (Open to Remote / Relocation)</div>
+                  </div>
+                </div>
+                <span class="chip chip-primary">Available</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; background-color: var(--bg-surface); padding: 2.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Direct Channels</h3>
+            <p style="font-size: 0.9375rem; color: var(--text-secondary);">
+              Connect with me on LinkedIn or review my code repositories on GitHub.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <a href="https://linkedin.com/in/" target="_blank" class="btn btn-secondary" style="justify-content: flex-start;">
+                <i class="fa-brands fa-linkedin" style="color: #0A66C2;"></i> LinkedIn Profile
+              </a>
+              <a href="https://github.com/ayushverma593773" target="_blank" class="btn btn-secondary" style="justify-content: flex-start;">
+                <i class="fa-brands fa-github"></i> GitHub Repositories
+              </a>
+              <a href="mailto:ayushverma593773@gmail.com" class="btn btn-primary" style="justify-content: flex-start;">
+                <i class="fa-regular fa-paper-plane"></i> Send Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <section id="projects" aria-labelledby="projects-heading">
-        <div class="container">
-            <h2 id="projects-heading">Projects</h2>
-            <div class="project-grid">
-                <div class="project-card reveal">
-                    <div class="project-content">
-                        <h3>HelixCare — Microservices Healthcare Platform</h3>
-                        <p>Designed & implemented 6+ microservices with Spring Boot; containerized with Docker and
-                            integrated Kafka for realtime data flow. Built PostgreSQL schemas and extensive tests to
-                            improve uptime and modularity.</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spring Boot</span>
-                            <span class="tag">Docker</span>
-                            <span class="tag">Kafka</span>
-                            <span class="tag">PostgreSQL</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ayush-verma-004/HelixCare" target="_blank"><i
-                                class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
+  <!-- ==========================================================================
+       12. FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-text">
+        © 2026 Ayush Verma. Designed & built with care.
+      </div>
+      <a href="#hero" class="back-to-top">
+        Back to top <i class="fa-solid fa-arrow-up"></i>
+      </a>
+    </div>
+  </footer>
 
-                <div class="project-card reveal">
-                    <div class="project-content">
-                        <h3>EosCarbon — Blue Carbon MRV Solution</h3>
-                        <p>Spring Boot backend for carbon MRV: project registration, evidence upload and verification
-                            workflows. Integrated AI/ML pipelines for drone & satellite biomass estimation to automate
-                            carbon calculations.</p>
-                        <div class="project-tags">
-                            <span class="tag">Spring Boot</span>
-                            <span class="tag">AI/ML</span>
-                            <span class="tag">Satellite Data</span>
-                            <span class="tag">Blockchain (POC)</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ayush-verma-004/EosCarbon" target="_blank"><i
-                                class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
+  <!-- ==========================================================================
+       13. INTERACTIVE PROJECT SIDE-DRAWER MODAL
+       ========================================================================== -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div id="modal-drawer" class="modal-drawer">
+      <button id="modal-close-btn" class="modal-close-btn" aria-label="Close Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="modal-content-container">
+        <!-- Dynamically populated by js/main.js -->
+      </div>
+    </div>
+  </div>
 
-                <div class="project-card reveal">
-                    <div class="project-content">
-                        <h3>Auz — Personal AI Desktop Assistant</h3>
-                        <p>Voice-controlled Python assistant for automating everyday tasks: opening apps, playing media
-                            and system commands. Integrated speech recognition & TTS for responsive interaction.</p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">Speech</span>
-                            <span class="tag">Automation</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ayush-verma-004/Pyhton/tree/main/AI" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" aria-labelledby="skills-heading">
-        <div class="container">
-            <h2 id="skills-heading">Skills & Toolkit</h2>
-            <div class="skill-categories">
-                <div class="skill-category reveal">
-                    <h3>Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Java Core</span>
-                        <span class="skill-tag">Java EE</span>
-                        <span class="skill-tag">Python (Basic)</span>
-                    </div>
-                </div>
-
-                <div class="skill-category reveal">
-                    <h3>Frameworks & Libraries</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Spring</span>
-                        <span class="skill-tag">Spring Boot</span>
-                        <span class="skill-tag">Hibernate (JPA)</span>
-                        <span class="skill-tag">gRPC</span>
-                    </div>
-                </div>
-
-                <div class="skill-category reveal">
-                    <h3>Databases & Tools</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Git & GitHub</span>
-                        <span class="skill-tag">Postman</span>
-                        <span class="skill-tag">Swagger</span>
-                        <span class="skill-tag">JUnit</span>
-                        <span class="skill-tag">Hazelcast</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" aria-labelledby="experience-heading">
-        <div class="container">
-            <h2 id="experience-heading">Experience & Education</h2>
-            <div class="timeline">
-
-                <div class="timeline-item left reveal">
-                    <div class="timeline-content">
-                        <h3>Beangate IT Solutions — Java Backend Intern</h3>
-                        <span class="date">Remote • Intern</span>
-                        <p>Engineered 5+ backend modules with Java & Spring Boot, improved API response times by ~20%,
-                            and reduced technical debt through targeted refactors and testing.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item right reveal">
-                    <div class="timeline-content">
-                        <h3>Education — Rajiv Gandhi Proudyogiki Vishwavidyalaya</h3>
-                        <span class="date">B.Tech AI & ML • Sep 2023 – Jun 2027</span>
-                        <p>CGPA: 8.25 / 10. Relevant coursework: Data Structures, Algorithms, Databases, Networking, OS,
-                            AI, ML.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="achievements" aria-labelledby="achievements-heading">
-        <div class="container">
-            <h2 id="achievements-heading">Key Achievements</h2>
-            <div class="ach-list reveal">
-                <div class="ach-card">
-                    <strong>DSA & Competitive</strong>
-                    <p>Over 950+ DSA problems solved; 2-Star on CodeChef.</p>
-                </div>
-
-                <div class="ach-card">
-                    <strong>Hackathons & Recognition</strong>
-                    <p>1st place in Technocrats Hackathon; recognized by ISRO for idea submission at Bharatiya Antariksh
-                        Hackathon 2025; Smart India Hackathon participation.</p>
-                </div>
-
-                <div class="ach-card">
-                    <strong>Certifications & Badges</strong>
-                    <p>Google badge for Scalable Java Microservices; additional internal training and project
-                        certifications.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" aria-labelledby="contact-heading">
-        <div class="container">
-            <h2 id="contact-heading">Contact Me</h2>
-            <p style="text-align:center;color:var(--text-medium);margin-bottom:1.25rem;">I'm open to opportunities and
-                collaborations. Reach out via email, phone, or LinkedIn — links above.</p>
-            <form action="https://formspree.io/f/your-form-id" method="POST" aria-label="Contact form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" rows="7" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="social-links" aria-hidden="false">
-                <a href="https://github.com/ayush-verma-004" target="_blank" aria-label="GitHub"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/ayush-verma-102120295" target="_blank" aria-label="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="mailto:ayushverma593773@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p>&copy; 2025 Ayush Verma. Built with <i class="fas fa-heart" style="color: var(--primary-color);"></i> and
-                Java.</p>
-        </div>
-    </footer>
-
-    <a href="#hero" class="back-to-top" id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
-    <script>
-        // DOM-ready
-        document.addEventListener('DOMContentLoaded', () => {
-            // Typewriter
-            const typewriterElement = document.getElementById('typewriter');
-            if (typewriterElement) {
-                const strings = ["Java Developer", "Spring Boot Enthusiast", "Problem Solver", "Backend Engineer"];
-                let i = 0, j = 0, deleting = false;
-                const typeSpeed = 90, delSpeed = 45, pause = 1700;
-                function tick() {
-                    const full = strings[i];
-                    if (!deleting) {
-                        j++; typewriterElement.textContent = full.substring(0, j);
-                    } else {
-                        j--; typewriterElement.textContent = full.substring(0, j);
-                    }
-                    let delay = deleting ? delSpeed : typeSpeed;
-                    if (!deleting && j === full.length) { deleting = true; delay = pause; }
-                    if (deleting && j === 0) { deleting = false; i = (i + 1) % strings.length; }
-                    setTimeout(tick, delay);
-                }
-                tick();
-            }
-
-            // Scroll reveal using IntersectionObserver
-            const reveals = document.querySelectorAll('.reveal');
-            if (reveals.length) {
-                const obs = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
-                }, { threshold: 0.12 });
-                reveals.forEach(r => obs.observe(r));
-            }
-
-            // Mobile nav toggle
-            const navToggle = document.getElementById('mobile-nav-toggle');
-            const navLinks = document.getElementById('nav-links');
-            const navLinkAnchors = navLinks ? navLinks.querySelectorAll('a') : [];
-
-            if (navToggle && navLinks) {
-                navToggle.addEventListener('click', () => {
-                    const open = navLinks.classList.toggle('open');
-                    navToggle.setAttribute('aria-expanded', String(open));
-                    const icon = navToggle.querySelector('i');
-                    if (icon) { icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); }
-                });
-
-                // Close menu on nav link click (mobile)
-                navLinkAnchors.forEach(a => a.addEventListener('click', () => {
-                    if (navLinks.classList.contains('open')) {
-                        navLinks.classList.remove('open');
-                        navToggle.setAttribute('aria-expanded', 'false');
-                        const icon = navToggle.querySelector('i'); if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
-                    }
-                }));
-
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    const isClickInside = navLinks.contains(e.target) || navToggle.contains(e.target);
-                    if (!isClickInside && navLinks.classList.contains('open')) {
-                        navLinks.classList.remove('open');
-                        navToggle.setAttribute('aria-expanded', 'false');
-                        const icon = navToggle.querySelector('i'); if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
-                    }
-                });
-            }
-
-            // Back to top
-            const backToTopButton = document.getElementById('back-to-top');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 320) backToTopButton.classList.add('show'); else backToTopButton.classList.remove('show');
-            });
-
-            // Active nav link highlight
-            const sections = document.querySelectorAll('section[id]');
-            const navAnchors = document.querySelectorAll('nav .nav-links li a');
-            if (sections.length && navAnchors.length) {
-                const sectionObs = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const id = entry.target.id;
-                            navAnchors.forEach(a => a.classList.remove('active'));
-                            const active = document.querySelector(`nav .nav-links li a[href="#${id}"]`);
-                            if (active) active.classList.add('active');
-                        }
-                    });
-                }, { threshold: 0.56, rootMargin: `-${document.documentElement.style.getPropertyValue('--nav-height') || 64}px 0px -40% 0px` });
-                sections.forEach(s => sectionObs.observe(s));
-            }
-
-        });
-    </script>
-
+  <!-- JavaScript Controller -->
+  <script src="js/main.js"></script>
 </body>
-
 </html>
