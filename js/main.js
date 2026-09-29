@@ -98,44 +98,40 @@ function initNavigation() {
 const PROJECT_DATABASE = {
   eoscarbon: {
     title: "EosCarbon — Blue Carbon MRV Solution",
-    subtitle: "Spring Boot Microservices & AI Integration for Environmental Verification",
-    problem: "Environmental carbon projects face slow, manual verification workflows and fragmented data collection across remote field sites.",
-    solution: "Engineered scalable Spring Boot backend services for project registration, evidence uploads, and verification workflows.",
-    techStack: ["Spring Boot", "MongoDB", "JWT", "Microservices", "Python AI/ML", "REST APIs"],
+    subtitle: "Spring Boot, MongoDB, JWT, Microservices, AI Integration",
+    problem: "Coastal blue carbon restoration projects (mangroves, seagrass) suffer from slow manual verification, inaccurate physical biomass surveys, and fragmented field data submissions.",
+    solution: "Engineered backend workflows with 6+ APIs for project registration, evidence upload, onboarding, and verification.",
+    techStack: ["Spring Boot", "MongoDB", "JWT", "Microservices", "AI Integration"],
     bullets: [
-      "Designed and deployed 6+ REST APIs for project registration, evidence processing, and verification pipelines.",
-      "Developed AI/ML models to process drone and satellite data, automating biomass & carbon estimation with 90%+ accuracy.",
-      "Built a unified platform for NGOs and local communities to submit field data via mobile integration, raising submission volume by 40%.",
-      "Integrated AI-verified restoration data to accelerate carbon credit generation workflows, improving verification efficiency by 30%.",
-      "Implemented MongoDB schemas, role-based access control (RBAC), JWT security, pagination, sorting, and global exception handlers."
+      "Engineered backend workflows with 6+ APIs for project registration, evidence upload, onboarding, and verification.",
+      "Implemented JWT authentication, role-based access control, validation, pagination, sorting, and global exception handling.",
+      "Designed MongoDB schemas for environmental datasets and integrated AI-assisted geospatial verification into the workflow."
     ],
     github: "https://github.com/ayush-verma-004",
     liveDemo: "#"
   },
   helixcare: {
-    title: "HelixCare — Healthcare Platform Architecture",
-    subtitle: "Distributed Microservices Ecosystem with Spring Boot, Kafka & Docker",
-    problem: "Monolithic healthcare systems struggle with synchronous service bottlenecks and tight database coupling during high patient load.",
-    solution: "Architected a decoupled microservices platform with asynchronous messaging and containerized deployment.",
-    techStack: ["Spring Boot", "Apache Kafka", "Docker", "PostgreSQL", "JUnit", "TestContainers"],
+    title: "HelixCare — Microservices Healthcare Platform",
+    subtitle: "Spring Boot, Kafka, PostgreSQL, Docker, JUnit, Testcontainers",
+    problem: "Legacy monolithic healthcare backends experience severe performance degradation and risk data corruption when patient registration, billing creation, and analytics execute synchronously.",
+    solution: "Designed and implemented 6+ microservices using Spring Boot and Kafka for asynchronous service communication.",
+    techStack: ["Spring Boot", "Kafka", "PostgreSQL", "Docker", "JUnit", "Testcontainers"],
     bullets: [
-      "Engineered 6+ backend microservices communicating asynchronously over Apache Kafka event streams.",
-      "Containerized all microservices using Docker for consistent local and production deployment pipelines.",
-      "Built isolated PostgreSQL database schemas per service to maintain domain boundaries.",
-      "Wrote 200+ unit and integration tests using JUnit and TestContainers, raising code coverage by 30% and system uptime by 25%."
+      "Designed and implemented 6+ microservices using Spring Boot and Kafka for asynchronous service communication.",
+      "Designed PostgreSQL schemas and integrated Docker-based services for persistent storage and deployment workflows.",
+      "Developed unit and integration tests using JUnit and Testcontainers to validate service behavior."
     ],
     github: "https://github.com/ayush-verma-004"
   },
   auz: {
     title: "Auz — Personal AI Desktop Assistant",
-    subtitle: "Voice-Controlled Desktop Automation in Python",
-    problem: "Daily repetitive system administration tasks require manual application switching and context switching.",
-    solution: "Created an intelligent Python voice assistant automating operating system commands and media controls.",
-    techStack: ["Python", "Speech Recognition", "Text-to-Speech", "OS Automation", "PyQt"],
+    subtitle: "Python, Speech Recognition, Text-to-Speech, Automation",
+    problem: "Daily repetitive desktop tasks and workflows require frequent context switching and manual navigation.",
+    solution: "Built a voice-controlled desktop assistant capable of automating 10+ daily system tasks.",
+    techStack: ["Python", "Speech Recognition", "Text-to-Speech", "Automation"],
     bullets: [
-      "Automated 10+ daily tasks using real-time speech recognition and text-to-speech feedback.",
-      "Implemented direct system integration for launching applications (YouTube, IDEs), playing media, and controlling power states.",
-      "Cut manual desktop system control effort by 70% for daily repetitive developer workflows."
+      "Built a voice-controlled desktop assistant capable of automating 10+ daily system tasks.",
+      "Integrated speech recognition, text-to-speech, application launching, media control, and command-based automation."
     ],
     github: "https://github.com/ayush-verma-004"
   },
